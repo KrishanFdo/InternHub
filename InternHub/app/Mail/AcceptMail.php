@@ -16,9 +16,10 @@ class AcceptMail extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct()
+    public $mail_data;
+    public function __construct($mail_data)
     {
-        //
+        $this->mail_data = $mail_data;
     }
 
     /**
@@ -27,7 +28,7 @@ class AcceptMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Accept Mail',
+            subject: 'InternHub-DCS: Registration Acceptance',
         );
     }
 
@@ -37,7 +38,7 @@ class AcceptMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'view.name',
+            view: 'email.accept_email',
         );
     }
 

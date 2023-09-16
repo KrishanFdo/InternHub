@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>InternHub-DCS | Newly Registered</title>
+    <title>InternHub-DCS | Interns</title>
 
     <!--bootstrap css-->
     <link href="{{ asset('css/userlist.css') }}" rel="stylesheet">
@@ -32,8 +32,8 @@
 
         <ul class="list-unstyled px-2 ">
             <li class=""><a href="<?=url('/home')?>" class="text-decoration-none px-3 py-3 d-block">HOME</a></li>
-            <li class="active"><a href="/admin-accept" class="text-decoration-none px-3 py-3 d-block">NEWLY REGISTERED</a></li>
-            <li class=""><a href="/users" class="text-decoration-none px-3 py-3 d-block">INTERNS</a></li>
+            <li class=""><a href="/admin-accept" class="text-decoration-none px-3 py-3 d-block">NEWLY REGISTERED</a></li>
+            <li class="active"><a href="/users" class="text-decoration-none px-3 py-3 d-block">INTERNS</a></li>
 
         </ul>
 
@@ -91,7 +91,7 @@
                 @endif
 
                 <br>
-                <form style="margin-left: 5px;" class="form-group" action="<?=url('/filtered-registers')?>" method="GET">
+                <form style="margin-left: 5px;" class="form-group" action="<?=url('/filtered-users')?>" method="GET">
                     <div style=" display: flex;">
 
                         <div style="margin-left: 10px;">
@@ -128,6 +128,16 @@
                         <button type="submit" class="btn btn-primary btn-md col-sm-4" style="width: 150px; height: 40px; margin-left: 10px; margin-top: 20px;">Apply Filters</button>
                         <button type="reset" id="customResetButton" class="btn btn-secondary btn-md col-sm-4" style="width: 150px; height: 40px; margin-left: 10px; margin-top: 20px;">Reset</button>
 
+                        @php
+                            $fields = ['selectedscnumber'=>$selectedscnumber,
+                                     'selectedcompany'=>$selectedcompany,
+                                    'selectedspecial'=>$selectedspecial,
+                                    ];
+                            $serializedUsers = json_encode($fields);
+                        @endphp
+
+                        <a href="{{ url('/export-users')}}?users={{ urlencode($serializedUsers) }}" class="btn btn-success" style="margin-left: 10px; margin-top: 20px; width: 170px; height: 40px;">Download Excel</a>
+
                         @if(count($data)!=0)
                             @if(count($data)==1)
                                 <h5 style="margin-top: 30px; margin-left: 10px; color:rgba(189, 61, 10, 0.925)">{{ count($data) }} Intern Available</h5>
@@ -142,7 +152,7 @@
                     <script>
                         document.getElementById('customResetButton').addEventListener('click', function() {
                             // Perform the desired action when the reset button is clicked
-                            window.location.href = "<?=url('/admin-accept')?>";
+                            window.location.href = "<?=url('/users')?>";
                         });
 
                         const searchscnumber = document.getElementById('scnumber');
@@ -242,23 +252,8 @@
                         </div>
                         <div style="float:right; margin-top: 30px; margin-right: 20px;">
                         <div class="container">
-                            <form id="{{ $item->id }}" action="<?=url('/accept')?>" method="POST">
-                                @csrf
-                                <input type="hidden" name="id" value="{{ $item->id }}">
-                                <input type="submit" value="Accept" id="accept" onclick="confirmaccept(event)" data-aid="{{ $item->id }}">
-                            </form>
-                            <script>
-                                function confirmaccept(event){
-                                    event.preventDefault(); // Prevent the default form submission behavior
-                                    const userId = event.target.getAttribute('data-aid');
-                                    const result = confirm('Are you sure you want to accept?');
-                                    if (result) {
-                                        document.getElementById(userId).submit(); // Submit the form if OK is clicked
-                                    }
-                                }
-                            </script>
 
-                            <form id="{{ $item->id }}r" action="<?=url('/delete-register')?>" method="post">
+                            <form id="{{ $item->id }}r" action="<?=url('/delete-user')?>" method="post">
                                 @csrf
                                 @method('DELETE')
                                 <input type="hidden" name="id" value="{{ $item->id }}">
@@ -284,16 +279,23 @@
                             <div>
                                 <p><b>Email:</b> {{ $item->email }}</p>
                                 <p><b>Mobile:</b> {{ $item->mobile }}</p>
+                                <p><b>GPA:</b> {{ $item->gpa }}</p>
+                                <p><b>Expecting to do Special:</b> {{ $item->special }}</p>
                                 <p><b>Company:</b> {{ $item->company }}</p>
-                                <p><b>HR Number:</b> {{ $item->hr_number }}</p>
+                                <p><b>Address:</b> {{ $item->c_address }}</p>
                             </div>
                             <div style="margin-left: 5%">
+                                <p><b>HR Number:</b> {{ $item->hr_number }}</p>
                                 <p><b>Started Date:</b> {{ $item->s_date }}</p>
+                                <p><b>Expected Ending Date:</b> {{ $item->e_date }}</p>
                                 <p><b>Supervisor:</b> {{ $item->supervisor }}</p>
                                 <p><b>Supervisor Email:</b> {{ $item->s_email }}</p>
                                 <p><b>Supervisor Mobile:</b> {{ $item->s_mobile }}</p>
                             </div>
                         </div><br>
+                        <div>
+                            <p><b>Description About Internship</b><br> {{ $item->description }}</p>
+                        </div>
                     </div>
 
                 </div>

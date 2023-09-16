@@ -41,7 +41,17 @@ Route::get('/admin-accept',[RegisterController::class,'admin_accept'])->middlewa
 Route::get('/filtered-registers', [RegisterController::class,'filtered_registers'])->middleware('auth:webadmin');
 Route::delete('/delete-register',[RegisterController::class,'delete_register'])->middleware('auth:webadmin');
 
+Route::post('/accept',[UserController::class,'accept'])->middleware('auth:webadmin');
+Route::get('/users',[UserController::class,'users'])->middleware('auth:webadmin');
+Route::get('/members',[UserController::class,'members'])->middleware('auth:web');
+Route::delete('/delete-user',[UserController::class,'delete_user'])->middleware('auth:webadmin');
+Route::get('/filtered-users', [UserController::class,'filtered_users'])->middleware('auth:webadmin');
+Route::get('/filtered-members', [UserController::class,'filtered_members'])->middleware('auth:web');
+Route::post('/update-user-password',[UserController::class,'update_user_password'])->middleware('auth:web');
+
 
 Route::post('/authenticate',[LoginController::class,'authenticate']);
 Route::post('/logout',[LoginController::class,'logout']);
 Route::post('/adminlogout',[LoginController::class,'adminlogout']);
+
+Route::get('/export-users',[ExportController::class,'exportFilteredUsers'])->middleware('auth:webadmin');
