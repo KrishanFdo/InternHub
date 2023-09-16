@@ -41,7 +41,7 @@
     <div>
       <div>
         <br>
-        <h1 class="fs-8 ms-6 name" style="text-align: center"><span class="text" >InturnHub - DCS - University Of Ruhuna</span></h1>
+        <h1 class="fs-8 ms-6 name" style="text-align: center"><span class="text" >InternHub - DCS - University Of Ruhuna</span></h1>
 
       </div>
     </div>

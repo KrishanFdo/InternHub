@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>InturnHub-DCS | Login</title>
+    <title>InternHub-DCS | Login</title>
     <link rel="stylesheet" href="{{ asset('css/log.css') }}">
     <!-- Latest compiled and minified CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -22,7 +22,7 @@
 
             <form action="<?=url('/authenticate')?>" method="POST">
             <div class="form-reg shadow p-3 mb-5 bg-white rounded">
-                <h5 class="welcome-text text-center">WELCOME TO InturnHub-DCS</h5>
+                <h5 class="welcome-text text-center">WELCOME TO InternHub-DCS</h5>
                 @if (session('error'))
                 <div class="alert alert-danger">
                     {{ session('error') }}
