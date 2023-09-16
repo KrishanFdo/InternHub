@@ -18,16 +18,17 @@ return new class extends Migration
             $table->string('email',50)->unique();
             $table->string('mobile',15);
             $table->float('gpa');
-            $table->string('special',50);
+            $table->string('special',5);
             $table->string('company',100);
             $table->string('c_address');
             $table->string('hr_number',15);
-            $table->string('s_date');
-            $table->string('e_date');
+            $table->date('s_date');
+            $table->date('e_date');
             $table->string('supervisor');
             $table->string('s_email',50);
             $table->string('s_mobile',15);
             $table->text('description');
+            $table->string('imgpath');
             $table->timestamps();
         });
     }

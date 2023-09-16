@@ -1,0 +1,43 @@
+.position-select {
+    position: relative;
+    display: none;
+}
+
+.select-positions {
+    position: absolute;
+    background-color: #f1f1f1;
+    border: 1px solid #ccc;
+    max-height: 150px;
+    overflow-y: auto;
+}
+
+.select-positions div {
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.select-positions div:hover {
+    background-color: #ddd;
+}
+
+.workplace-select {
+    position: relative;
+    display: none;
+}
+
+.select-workplaces {
+    position: absolute;
+    background-color: #f1f1f1;
+    border: 1px solid #ccc;
+    max-height: 150px;
+    overflow-y: auto;
+}
+
+.select-workplaces div {
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.select-workplaces div:hover {
+    background-color: #ddd;
+}

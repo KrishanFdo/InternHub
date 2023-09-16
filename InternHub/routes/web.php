@@ -14,5 +14,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return redirect('/login');
+})->middleware('guest');
+
+Route::get('/login', function () {
+    return view('login');
+})->middleware('guest')->name('login');
+
+Route::get('/register', function () {
+    return view('register');
+})->middleware('guest');
