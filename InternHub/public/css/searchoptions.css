@@ -1,9 +1,9 @@
-.position-select {
+.scnumber-select {
     position: relative;
     display: none;
 }
 
-.select-positions {
+.select-scnumbers {
     position: absolute;
     background-color: #f1f1f1;
     border: 1px solid #ccc;
@@ -11,21 +11,21 @@
     overflow-y: auto;
 }
 
-.select-positions div {
+.select-scnumbers div {
     padding: 5px 10px;
     cursor: pointer;
 }
 
-.select-positions div:hover {
+.select-scnumbers div:hover {
     background-color: #ddd;
 }
 
-.workplace-select {
+.company-select {
     position: relative;
     display: none;
 }
 
-.select-workplaces {
+.select-companies {
     position: absolute;
     background-color: #f1f1f1;
     border: 1px solid #ccc;
@@ -33,11 +33,11 @@
     overflow-y: auto;
 }
 
-.select-workplaces div {
+.select-companies div {
     padding: 5px 10px;
     cursor: pointer;
 }
 
-.select-workplaces div:hover {
+.select-companies div:hover {
     background-color: #ddd;
 }

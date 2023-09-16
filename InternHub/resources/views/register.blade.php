@@ -68,7 +68,7 @@
                     <h3 style="text-decoration: underline;">Personal Details</h3><br>
                     <div class="row jumbotron">
                         <div class="col-sm-6 mb-4">
-                            <label style="color: blue;">Name With Initals</label>
+                            <label style="color: blue;">Name with Initals</label>
                             <input type="text" class="form-control " name="name">
                             @error('name')
                                 <div class="alert alert-danger">{{ $message }}</div>

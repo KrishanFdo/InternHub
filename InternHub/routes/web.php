@@ -31,5 +31,17 @@ Route::get('/register', function () {
     return view('register');
 })->middleware('guest');
 
+Route::get('/home', function () {
+    return view('home');
+})->middleware('auth:webadmin');
+
 
 Route::post('/register-submit',[RegisterController::class,'register']);
+Route::get('/admin-accept',[RegisterController::class,'admin_accept'])->middleware('auth:webadmin');
+Route::get('/filtered-registers', [RegisterController::class,'filtered_registers'])->middleware('auth:webadmin');
+Route::delete('/delete-register',[RegisterController::class,'delete_register'])->middleware('auth:webadmin');
+
+
+Route::post('/authenticate',[LoginController::class,'authenticate']);
+Route::post('/logout',[LoginController::class,'logout']);
+Route::post('/adminlogout',[LoginController::class,'adminlogout']);

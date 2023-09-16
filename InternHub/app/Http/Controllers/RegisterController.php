@@ -141,4 +141,85 @@ class RegisterController extends Controller
 
         return $filename;
     }
+
+    public function admin_accept(){
+        $selectedscnumber = "All";
+        $selectedcompany = "All";
+        $selectedspecial = "";
+
+        $data = Register::all();
+        $scnumbers = Register::distinct()->pluck('scnumber');
+        $companies = Register::distinct()->pluck('company');
+        return view('adminaccept',
+         compact('data','scnumbers','companies','selectedscnumber','selectedcompany','selectedspecial'));
+    }
+
+    public function delete_register(Request $request){
+        $id = $request->input('id');
+        $reg = Register::where('id',$id)->first();
+        $email = $reg->email;
+        $name = $reg->name;
+
+        try{
+            Mail::to($email)->send(new RemoveMail($name));
+            Register::where('id',$id)->delete();
+            if (File::exists('storage/'.$reg->imgpath)) {
+                if($reg->imgpath != 'images/default.png')
+                    File::delete('storage/'.$reg->imgpath);
+            }
+        }
+        catch(Exception $e){
+            return redirect()->back()->with('mailerror', 'Removal Unsuccessful! Network Error or any other error');
+        }
+
+
+
+        return redirect()->back()->with('success', 'Record Removed successfully.');
+
+    }
+
+    public function filtered_registers(Request $request)
+    {
+        $query = Register::query();
+        $flag=0;
+        // Apply filters based on user selections
+        $selectedscnumber = $request->input('scnumber');
+        $selectedcompany = $request->input('company');
+        $selectedspecial = $request->input('special');
+
+        if ($request->has('scnumber')) {
+            if($request->input('scnumber')!="All"){
+                $query->where('scnumber', $request->input('scnumber'));
+                $flag = 1;
+            }
+        }
+
+        if ($request->has('company')) {
+            if($request->input('company')!="All"){
+                $query->where('company', $request->input('company'));
+                $flag = 1;
+            }
+        }
+
+        if ($request->has('special')) {
+            if($request->input('special')!=""){
+                $query->where('special', $request->input('special'));
+                $flag = 1;
+            }
+        }
+
+        // Add more conditions for other filters (position, workplace, qualifications)
+
+        $data = $query->get();
+
+        if($flag==0){
+            $data=Register::all();
+        }
+
+        $scnumbers = Register::distinct()->pluck('scnumber');
+        $companies = Register::distinct()->pluck('company');
+        return view('adminaccept',
+         compact('data','scnumbers','companies','selectedcompany','selectedscnumber','selectedspecial'));
+    }
+
 }

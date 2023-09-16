@@ -16,9 +16,10 @@ class RemoveMail extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct()
+    public $user;
+    public function __construct($user)
     {
-        //
+        $this->user = $user;
     }
 
     /**
@@ -27,7 +28,7 @@ class RemoveMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Remove Mail',
+            subject: 'InternHub-DCS: Rejection of Registration',
         );
     }
 
@@ -37,7 +38,7 @@ class RemoveMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'view.name',
+            view: 'email.remove_email',
         );
     }
 
