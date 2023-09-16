@@ -35,6 +35,13 @@ Route::get('/home', function () {
     return view('home');
 })->middleware('auth:webadmin');
 
+Route::get('/userhome', function () {
+    return view('userhome');
+})->middleware('auth:web');
+
+Route::get('/user-reset-password', function(){
+    return view('user_reset_password');
+})->middleware('web');
 
 Route::post('/register-submit',[RegisterController::class,'register']);
 Route::get('/admin-accept',[RegisterController::class,'admin_accept'])->middleware('auth:webadmin');

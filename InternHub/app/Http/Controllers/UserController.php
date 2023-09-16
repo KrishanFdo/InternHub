@@ -73,23 +73,21 @@ class UserController extends Controller
 
     public function delete_user(Request $request){
         $id = $request->input('id');
-        $reg = Register::where('id',$id)->first();
-        $email = $reg->email;
-        $name = $reg->name;
+        $u = User::where('id',$id)->first();
+        $email = $u->email;
+        $name = $u->name;
 
         try{
             Mail::to($email)->send(new RemoveMail($name));
-            Register::where('id',$id)->delete();
-            if (File::exists('storage/'.$reg->imgpath)) {
-                if($reg->imgpath != 'images/default.png')
-                    File::delete('storage/'.$reg->imgpath);
+            User::where('id',$id)->delete();
+            if (File::exists('storage/'.$u->imgpath)) {
+                if($u->imgpath != 'images/default.png')
+                    File::delete('storage/'.$u->imgpath);
             }
         }
         catch(Exception $e){
             return redirect()->back()->with('mailerror', 'Removal Unsuccessful! Network Error or any other error');
         }
-
-
 
         return redirect()->back()->with('success', 'Record Removed successfully.');
 
@@ -137,5 +135,34 @@ class UserController extends Controller
         $companies = User::distinct()->pluck('company');
         return view('users',
          compact('data','scnumbers','companies','selectedcompany','selectedscnumber','selectedspecial'));
+    }
+
+    public function update_user_password(Request $request){
+        $request->validate([
+            'new_password' => 'confirmed',
+        ]);
+
+        $user = Auth::user();
+
+        $id = $request->input('id');
+        $old_password = $request->input('old_password');
+        $new_password = $request->input('new_password');
+
+        if(!Hash::check($old_password,$user->password))
+            return redirect()->back()->with('error', 'Old Password is Incorrect.');
+
+        // $u is the user object used to update password
+        $u = User::find($id);
+        $u->password = Hash::make($new_password);
+
+        try{
+            Mail::to($u->email)->send(new UserPasswordChange($u->name));
+        }
+        catch(Exception $e){
+            return redirect()->back()->with('mailerror', 'Unsuccessful! Network Error or any other error');
+        }
+        $u->save();
+
+        return redirect()->back()->with('success', 'Password Changed successfully.');
     }
 }
