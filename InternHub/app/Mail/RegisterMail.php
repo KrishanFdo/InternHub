@@ -16,9 +16,10 @@ class RegisterMail extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct()
+    public $user;
+    public function __construct($user)
     {
-        //
+        $this->user = $user;
     }
 
     /**
@@ -27,7 +28,7 @@ class RegisterMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Register Mail',
+            subject: 'Registration to InternHub-DCS',
         );
     }
 
@@ -37,7 +38,7 @@ class RegisterMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'view.name',
+            view: 'email.register_email',
         );
     }
 
