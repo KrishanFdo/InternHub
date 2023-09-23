@@ -69,7 +69,7 @@
                     <div class="row jumbotron">
                         <div class="col-sm-6 mb-4">
                             <label style="color: blue;">Name with Initals</label>
-                            <input type="text" class="form-control " name="name">
+                            <input type="text" class="form-control " name="name" value="{{ old('name') }}">
                             @error('name')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
@@ -77,7 +77,7 @@
 
                         <div class="col-sm-6 mb-4">
                             <label style="color: blue;"> SC Number </label>
-                            <input type="text" class="form-control" placeholder="SC/20**/*****" name="scnumber">
+                            <input type="text" class="form-control" placeholder="SC/20**/*****" name="scnumber" value="{{ old('scnumber') }}">
                             @error('scnumber')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
@@ -85,7 +85,7 @@
 
                         <div class="col-sm-6 mb-4">
                             <label style="color: blue;">Email</label>
-                                <input type="text" class="form-control" placeholder="Email address" name="email" >
+                                <input type="text" class="form-control" placeholder="Email address" name="email" value="{{ old('email') }}">
                             @error('email')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
@@ -94,7 +94,7 @@
 
                         <div class="col-sm-6 mb-4">
                             <label style="color: blue;">Contact Number </label>
-                            <input type="text" class="form-control " placeholder="+94XXXXXXXXX" name="mobile">
+                            <input type="text" class="form-control " placeholder="+94XXXXXXXXX" name="mobile" value="{{ old('mobile') }}">
                             @error('mobile')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
@@ -102,7 +102,7 @@
 
                         <div class="col-sm-6 mb-4">
                             <label style="color: blue;">Current GPA</label>
-                            <input type="text" class="form-control " placeholder="#.##" name="gpa">
+                            <input type="text" class="form-control " placeholder="#.##" name="gpa" value="{{ old('gpa') }}">
                             @error('gpa')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
@@ -112,8 +112,8 @@
                             <label style="color: blue;">Are You Expecting to follow BCS Special Degree?</label><br>
                             <select class="form-select" name="special">
                                 <option value="" disabled selected>Select</option>
-                                <option value="YES">YES</option>
-                                <option value="NO">NO</option>
+                                <option value="YES" {{ old('special') === 'YES' ? 'selected' : '' }}>YES</option>
+                                <option value="NO" {{ old('special') === 'NO' ? 'selected' : '' }}>NO</option>
                             </select>
                             @error('special')
                                 <div class="alert alert-danger">{{ $message }}</div>
@@ -122,7 +122,7 @@
 
                         <div class="col-sm-6 mb-4">
                             <label style="color: blue;">Number of Credits Completed upto Now</label>
-                            <input type="text" class="form-control " placeholder="Enter Number of Credits" name="credits">
+                            <input type="text" class="form-control " placeholder="Enter Number of Credits" name="credits" value="{{ old('credits') }}">
                             @error('credits')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
@@ -147,28 +147,28 @@
                             <label style="color: blue;">Company Name</label>
                             <select name="company" id="company" class="form-select">
                                 <option value="" disabled selected>Select</option>
-                                <option value="WSO2">WSO2</option>
-                                <option value="ITX 360">ITX 360</option>
-                                <option value="Epic Lanka">Epic Lanka</option>
-                                <option value="CodeGen">CodeGen</option>
-                                <option value="Bell Solutions">Bell Solutions</option>
-                                <option value="Creative Software">Creative Software</option>
-                                <option value="Virtusa">Virtusa</option>
-                                <option value="EchonLabs">EchonLabs</option>
-                                <option value="Sysco Labs">Sysco Labs</option>
-                                <option value="Scicom Lanka">Scicom Lanka</option>
-                                <option value="Blue Lotus 360">Blue Lotus 360</option>
-                                <option value="Enactor">Enactor</option>
-                                <option value="Adeona Technologies">Adeona Technologies</option>
-                                <option value="VizuaMatix">VizuaMatix</option>
-                                <option value="Nvision">Nvision</option>
-                                <option value="SLT Digital Labs">SLT Digital Labs</option>
-                                <option value="SLT Digital Services">SLT Digital Services</option>
-                                <option value="Future CX">Future CX</option>
-                                <option value="99X">99X</option>
-                                <option value="IFS">IFS</option>
-                                <option value="DCS">DCS</option>
-                                <option value="Other">Other</option>
+                                <option value="WSO2" {{ old('company') === 'WSO2' ? 'selected' : '' }}>WSO2</option>
+                                <option value="ITX 360" {{ old('company') === 'ITX 360' ? 'selected' : '' }}>ITX 360</option>
+                                <option value="Epic Lanka" {{ old('company') === 'Epic Lanka' ? 'selected' : '' }}>Epic Lanka</option>
+                                <option value="CodeGen" {{ old('company') === 'CodeGen' ? 'selected' : '' }}>CodeGen</option>
+                                <option value="Bell Solutions" {{ old('company') === 'Bell Solutions' ? 'selected' : '' }}>Bell Solutions</option>
+                                <option value="Creative Software" {{ old('company') === 'Creative Software' ? 'selected' : '' }}>Creative Software</option>
+                                <option value="Virtusa" {{ old('company') === 'Virtusa' ? 'selected' : '' }}>Virtusa</option>
+                                <option value="EchonLabs" {{ old('company') === 'EchonLabs' ? 'selected' : '' }}>EchonLabs</option>
+                                <option value="Sysco Labs" {{ old('company') === 'Sysco Labs' ? 'selected' : '' }}>Sysco Labs</option>
+                                <option value="Scicom Lanka" {{ old('company') === 'Scicom Lanka' ? 'selected' : '' }}>Scicom Lanka</option>
+                                <option value="Blue Lotus 360" {{ old('company') === 'Blue Lotus 360' ? 'selected' : '' }}>Blue Lotus 360</option>
+                                <option value="Enactor" {{ old('company') === 'Enactor' ? 'selected' : '' }}>Enactor</option>
+                                <option value="Adeona Technologies" {{ old('company') === 'Adeona Technologies' ? 'selected' : '' }}>Adeona Technologies</option>
+                                <option value="VizuaMatix" {{ old('company') === 'VizuaMatix' ? 'selected' : '' }}>VizuaMatix</option>
+                                <option value="Nvision" {{ old('company') === 'Nvision' ? 'selected' : '' }}>Nvision</option>
+                                <option value="SLT Digital Labs" {{ old('company') === 'SLT Digital Labs' ? 'selected' : '' }}>SLT Digital Labs</option>
+                                <option value="SLT Digital Services" {{ old('company') === 'SLT Digital Services' ? 'selected' : '' }}>SLT Digital Services</option>
+                                <option value="Future CX" {{ old('company') === 'Future CX' ? 'selected' : '' }}>Future CX</option>
+                                <option value="99X" {{ old('company') === '99X' ? 'selected' : '' }}>99X</option>
+                                <option value="IFS" {{ old('company') === 'IFS' ? 'selected' : '' }}>IFS</option>
+                                <option value="DCS" {{ old('company') === 'DCS' ? 'selected' : '' }}>DCS</option>
+                                <option value="Other" {{ old('company') === 'Other' ? 'selected' : '' }}>Other</option>
                             </select>
                             @error('company')
                                 <div class="alert alert-danger">{{ $message }}</div>
@@ -208,7 +208,7 @@
 
                         <div class="col-sm-6 mb-4">
                             <label style="color: blue;">Company Address</label>
-                            <input type="text" class="form-control " name="c_address">
+                            <input type="text" class="form-control " name="c_address" value="{{ old('c_address') }}">
                             @error('c_address')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
@@ -216,7 +216,7 @@
 
                         <div class="col-sm-6 mb-4">
                             <label style="color: blue;">HR Department Contact Number</label>
-                            <input type="text" class="form-control " placeholder="+94XXXXXXXXX" name="hr_number">
+                            <input type="text" class="form-control " placeholder="+94XXXXXXXXX" name="hr_number" value="{{ old('hr_number') }}">
                             @error('hr_number')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
@@ -224,7 +224,7 @@
 
                         <div class="col-sm-6 mb-4">
                             <label style="color: blue;">Started Date of Training</label>
-                            <input type="date" class="form-control " name="s_date">
+                            <input type="date" class="form-control " name="s_date" value="{{ old('s_date') }}">
                             @error('s_date')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
@@ -232,7 +232,7 @@
 
                         <div class="col-sm-6 mb-4">
                             <label style="color: blue;">Expecting Ending Date of Training</label>
-                            <input type="date" class="form-control " name="e_date">
+                            <input type="date" class="form-control " name="e_date" value="{{ old('e_date') }}">
                             @error('e_date')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
@@ -240,7 +240,7 @@
 
                         <div class="col-sm-6 mb-4">
                             <label style="color: blue;"> Name of the Supervisor with Initials</label>
-                            <input type="text" class="form-control " name="supervisor">
+                            <input type="text" class="form-control " name="supervisor" value="{{ old('supervisor') }}">
                             @error('supervisor')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
@@ -248,7 +248,7 @@
 
                         <div class="col-sm-6 mb-4">
                             <label style="color: blue;">Email of the Supervisor</label>
-                            <input type="text" class="form-control " name="s_email">
+                            <input type="text" class="form-control " name="s_email" value="{{ old('s_email') }}">
                             @error('s_email')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
@@ -256,7 +256,7 @@
 
                         <div class="col-sm-6 mb-4">
                             <label style="color: blue;">Contact Number of the Supervisor</label>
-                            <input type="text" class="form-control " placeholder="+94XXXXXXXXX" name="s_mobile">
+                            <input type="text" class="form-control " placeholder="+94XXXXXXXXX" name="s_mobile" value="{{ old('s_mobile') }}">
                             @error('s_mobile')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
@@ -264,7 +264,7 @@
 
                         <div>
                             <label style="color: blue;">Technologies you are using in the training setup</label>
-                            <textarea row="4" col="50" name="technologies" placeholder="Type Here" class="form-control" style="height: 100px;"></textarea>
+                            <textarea row="4" col="50" name="technologies" placeholder="Type Here" class="form-control" style="height: 100px;">{{ old('technologies') }}</textarea>
                             @error('technologies')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror<br>
@@ -275,7 +275,7 @@
                                 <label style="color: blue;">Description about Current Training Setup (More than 150 words)</label>
                                 <div id="wordCount">: Word Count: 0</div>
                             </div>
-                            <textarea rows="4" cols="50" name="description" id="description" placeholder="Type Here" class="form-control" style="height: 200px;"></textarea>
+                            <textarea rows="4" cols="50" name="description" id="description" placeholder="Type Here" class="form-control" style="height: 200px;">{{ old('description') }}</textarea>
                             @error('description')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror<br>
