@@ -246,9 +246,10 @@
                     <div class="user-avatar">
                         <div style="display: flex;">
                         <img src="{{ asset('storage/'.$item->imgpath) }}" alt="User Avatar">
-                        <div style=" margin-top: 40px; margin-left: 10px">
+                        <div style=" margin-top: 20px; margin-left: 10px">
                             <h4 style="color: blue;">{{ $item->name }}</h4>
                             <h5 style="color: blue;">{{ $item->scnumber }}</h5>
+                            <h5 style="color: blue;">Current GPA: {{ $item->gpa }}</h5>
                         </div>
                         <div style="float:right; margin-top: 30px; margin-right: 20px;">
                         <div class="container">
@@ -279,8 +280,8 @@
                             <div>
                                 <p><b>Email:</b> {{ $item->email }}</p>
                                 <p><b>Mobile:</b> {{ $item->mobile }}</p>
-                                <p><b>GPA:</b> {{ $item->gpa }}</p>
                                 <p><b>Expecting to do Special:</b> {{ $item->special }}</p>
+                                <p><b>Credits Completed:</b> {{ $item->credits }}</p>
                                 <p><b>Company:</b> {{ $item->company }}</p>
                                 <p><b>Address:</b> {{ $item->c_address }}</p>
                             </div>
@@ -293,9 +294,34 @@
                                 <p><b>Supervisor Mobile:</b> {{ $item->s_mobile }}</p>
                             </div>
                         </div><br>
+
                         <div>
-                            <p><b>Description About Internship</b><br> {{ $item->description }}</p>
+                            <p><b>Technologies</b><br> {{ $item->technologies }}</p>
+                        </div><br>
+                        <div>
+                            <div id="description">
+                                <p><b>Description About Internship</b> (click to toggle content)</p>
+                            </div><br>
+                            <div id="descriptionContent" style="display: none;">
+                                {{ $item->description }}
+                            </div>
                         </div>
+                        <script>
+                            // Get a reference to the description content and the paragraph containing the text
+                            const descriptionContent = document.getElementById('descriptionContent');
+                            const descriptionText = document.getElementById('description');
+
+                            // Add a click event listener to the text
+                            descriptionText.addEventListener('click', () => {
+                                // Toggle the visibility of the content
+                                if (descriptionContent.style.display === 'none' || descriptionContent.style.display === '') {
+                                    descriptionContent.style.display = 'block';
+                                } else {
+                                    descriptionContent.style.display = 'none';
+                                }
+                            });
+                        </script>
+
                     </div>
 
                 </div>
