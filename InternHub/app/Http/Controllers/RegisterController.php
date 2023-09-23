@@ -58,7 +58,7 @@ class RegisterController extends Controller
             'email' => 'required|email|unique:registers,email|unique:users,email',
             'special'=>'required',
             'gpa'=>['required', 'numeric', 'regex:/^\d+(\.\d{1,2})?$/'],
-            'credits'=>'required|numeric|regex:/^\d+(\.\d{1,2})?$/',
+            'credits'=>['required', 'numeric', 'regex:/^\d+(\.\d{1,2})?$/'],
             'image' => 'image|mimes:jpeg,png,jpg,gif,HEIC,HEIF|max:5128',
 
             //industrial training details

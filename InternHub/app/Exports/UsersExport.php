@@ -24,9 +24,11 @@ class UsersExport implements FromCollection, WithHeadings, WithStyles
     public function collection()
     {
         $selectedColumns = collect($this->users)->map(function ($user) {
+            $user['technologies'] = str_replace('<br />', ",", $user['technologies']);
+
             return collect($user)->only([
-                'name', 'scnumber', 'email', 'mobile', 'gpa', 'special', 'company', 'c_address', 'hr_number',
-                's_date', 'e_date', 'supervisor', 's_email','s_mobile'
+                'name', 'scnumber', 'email', 'mobile', 'gpa', 'special', 'credits', 'company', 'c_address',
+                'hr_number', 's_date', 'e_date', 'supervisor', 's_email','s_mobile', 'technologies'
             ])->toArray();
         });
 
@@ -43,6 +45,7 @@ class UsersExport implements FromCollection, WithHeadings, WithStyles
             'Mobile',
             'GPA',
             'Expecting Special',
+            'Completed Credits',
             'Company',
             'Company Address',
             'HR Number',
@@ -50,7 +53,8 @@ class UsersExport implements FromCollection, WithHeadings, WithStyles
             'Expected Ending Date',
             'Supervisor',
             'Supervisor Email',
-            'Supervisor Mobile'
+            'Supervisor Mobile',
+            'technologies Using'
             // Add more field names as needed
         ];
     }
