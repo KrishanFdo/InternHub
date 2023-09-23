@@ -231,7 +231,7 @@
                         </div>
 
                         <div class="col-sm-6 mb-4">
-                            <label style="color: blue;">Expecting Ending Date of Training</label>
+                            <label style="color: blue;">Expected Ending Date of Training</label>
                             <input type="date" class="form-control " name="e_date" value="{{ old('e_date') }}">
                             @error('e_date')
                                 <div class="alert alert-danger">{{ $message }}</div>
