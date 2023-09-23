@@ -263,7 +263,7 @@
                         </div>
 
                         <div>
-                            <label style="color: blue;">Technologies you are using in the training setup</label>
+                            <label style="color: blue;">Technologies you are using in the Training Setup</label>
                             <textarea row="4" col="50" name="technologies" placeholder="Type Here" class="form-control" style="height: 100px;">{{ old('technologies') }}</textarea>
                             @error('technologies')
                                 <div class="alert alert-danger">{{ $message }}</div>
