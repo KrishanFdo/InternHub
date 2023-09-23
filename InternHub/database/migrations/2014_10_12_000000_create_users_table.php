@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('mobile',25);
             $table->float('gpa');
             $table->string('special',5);
+            $table->integer('credits');
             $table->string('company',100);
             $table->string('c_address');
             $table->string('hr_number',25);
@@ -27,6 +28,7 @@ return new class extends Migration
             $table->string('supervisor');
             $table->string('s_email',50);
             $table->string('s_mobile',25);
+            $table->text('technologies');
             $table->text('description');
             $table->string('password',60);
             $table->string('imgpath');

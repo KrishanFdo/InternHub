@@ -33,6 +33,7 @@ class UserController extends Controller
         $user->mobile = $u->mobile;
         $user->gpa = $u->gpa;
         $user->special = $u->special;
+        $user->credits = $u->credits;
         $user->company = $u->company;
         $user->c_address = $u->c_address;
         $user->hr_number = $u->hr_number;
@@ -41,6 +42,7 @@ class UserController extends Controller
         $user->supervisor = $u->supervisor;
         $user->s_email = $u->s_email;
         $user->s_mobile = $u->s_mobile;
+        $user->technologies = $u->technologies;
         $user->description = $u->description;
         $user->password = Hash::make($mail_data['password']);
         $user->imgpath = $u->imgpath;

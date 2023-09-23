@@ -121,6 +121,14 @@
                         </div>
 
                         <div class="col-sm-6 mb-4">
+                            <label style="color: blue;">Number of Credits Completed upto Now</label>
+                            <input type="text" class="form-control " placeholder="Enter Number of Credits" name="credits">
+                            @error('credits')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="col-sm-6 mb-4">
                             <label style="color: blue;">Profile photo</label>
                                 <div class="form-group">
                                     <input class="form-control" type="file" name="image" value="" />
@@ -231,7 +239,7 @@
                         </div>
 
                         <div class="col-sm-6 mb-4">
-                            <label style="color: blue;">Supervisor Name with Initials</label>
+                            <label style="color: blue;"> Name of the Supervisor with Initials</label>
                             <input type="text" class="form-control " name="supervisor">
                             @error('supervisor')
                                 <div class="alert alert-danger">{{ $message }}</div>
@@ -239,7 +247,7 @@
                         </div>
 
                         <div class="col-sm-6 mb-4">
-                            <label style="color: blue;">Email of Supervisor</label>
+                            <label style="color: blue;">Email of the Supervisor</label>
                             <input type="text" class="form-control " name="s_email">
                             @error('s_email')
                                 <div class="alert alert-danger">{{ $message }}</div>
@@ -247,7 +255,7 @@
                         </div>
 
                         <div class="col-sm-6 mb-4">
-                            <label style="color: blue;">Contact Number of Supervisor</label>
+                            <label style="color: blue;">Contact Number of the Supervisor</label>
                             <input type="text" class="form-control " placeholder="+94XXXXXXXXX" name="s_mobile">
                             @error('s_mobile')
                                 <div class="alert alert-danger">{{ $message }}</div>
@@ -255,18 +263,48 @@
                         </div>
 
                         <div>
-                            <label style="color: blue;">Description about Currrent Training Setup (150 words)</label>
-                            <textarea row="4" col="50" name="description" class="form-control" style="height: 200px;"></textarea>
+                            <label style="color: blue;">Technologies you are using in the training setup</label>
+                            <textarea row="4" col="50" name="technologies" placeholder="Type Here" class="form-control" style="height: 100px;"></textarea>
+                            @error('technologies')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror<br>
+                        </div>
+
+                        <div>
+                            <div style="display:flex;">
+                                <label style="color: blue;">Description about Current Training Setup (More than 150 words)</label>
+                                <div id="wordCount">: Word Count: 0</div>
+                            </div>
+                            <textarea rows="4" cols="50" name="description" id="description" placeholder="Type Here" class="form-control" style="height: 200px;"></textarea>
                             @error('description')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror<br>
                         </div>
 
+                        <script>
+                            const textarea = document.getElementById('description');
+                            const wordCountDisplay = document.getElementById('wordCount');
+                            const submitButton = document.getElementById('submitButton');
+
+                            textarea.addEventListener('input', function () {
+                                const text = textarea.value;
+                                const words = text.trim().split(/\s+/);
+                                const wordCount = words.length;
+                                wordCountDisplay.textContent = `: Word Count: ${wordCount}`;
+
+                                // Check if word count is greater than or equal to 150
+                                if (wordCount >= 150) {
+                                    wordCountDisplay.style.color = 'green';
+                                } else {
+                                    wordCountDisplay.style.color = 'red'; // Reset to default color
+                                }
+                            });
+                        </script>
 
                         </div>
                         <div style="text-align: center">
                             <input type="hidden" name="_token" value="<?=csrf_token()?>">
-                            <input type="submit" value="Submit" class="btn btn-primary btn-md col-sm-4" style="width: 15%; height: 10%">
+                            <input type="submit" value="Submit" class="btn btn-primary btn-md col-sm-4" style="width: 15%; height: 10%" id="submitButton">
                         </div><br><br>
               </form>
             </div>

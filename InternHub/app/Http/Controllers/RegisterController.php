@@ -41,6 +41,15 @@ class RegisterController extends Controller
             return str_replace(':attribute', $attribute, 'Invalid format. Correct format is +94XXXXXXXXX or 0#########.');
         });
 
+        Validator::extend('min_words', function ($attribute, $value, $parameters, $validator) {
+            $wordCount = str_word_count($value);
+            return $wordCount >= 150;
+        });
+
+        Validator::replacer('min_words', function ($message, $attribute, $rule, $parameters) {
+            return str_replace(':attribute', $attribute, 'There should be minimum 150 words.');
+        });
+
        $request->validate([
             //personal details
             'name'=>'required',
@@ -49,6 +58,7 @@ class RegisterController extends Controller
             'email' => 'required|email|unique:registers,email|unique:users,email',
             'special'=>'required',
             'gpa'=>['required', 'numeric', 'regex:/^\d+(\.\d{1,2})?$/'],
+            'credits'=>'required|numeric',
             'image' => 'image|mimes:jpeg,png,jpg,gif,HEIC,HEIF|max:5128',
 
             //industrial training details
@@ -60,7 +70,8 @@ class RegisterController extends Controller
             'supervisor'=>'required',
             's_email'=>'required|email',
             's_mobile'=>'required|mobile',
-            'description'=>'required'
+            'technologies'=>'required',
+            'description'=>'required|min_words'
         ]);
 
         $name = $request->input("name");
@@ -69,6 +80,7 @@ class RegisterController extends Controller
         $mobile = $request->input('mobile');
         $gpa = $request->input('gpa');
         $special = $request->input('special');
+        $credits = $request->input('credits');
         $c_address = $request->input('c_address');
         $hr_number = $request->input('hr_number');
         $s_date = $request->input('s_date');
@@ -76,6 +88,7 @@ class RegisterController extends Controller
         $supervisor = $request->input('supervisor');
         $s_email = $request->input('s_email');
         $s_mobile = $request->input('s_mobile');
+        $technologies = $request->input('technologies');
         $description = $request->input('description');
 
         if($request->input("company")=="Other")
@@ -101,6 +114,7 @@ class RegisterController extends Controller
         $registers->email = $email;
         $registers->gpa = $gpa;
         $registers->special = $special;
+        $registers->credits = $credits;
         $registers->company = $company;
         $registers->c_address = $c_address;
         $registers->hr_number = $hr_number;
@@ -109,6 +123,7 @@ class RegisterController extends Controller
         $registers->supervisor = $supervisor;
         $registers->s_email = $s_email;
         $registers->s_mobile = $s_mobile;
+        $registers->technologies = $technologies;
         $registers->description = $description;
         $registers->imgpath = $imgpath;
         $registers->save();
