@@ -296,45 +296,45 @@
                         </div><br>
 
                         <div>
-                            <div id="technologies">
-                                <p><b>Technologies Using</b> (click to toggle content)</p>
+                            <div id="technologies_{{ $item->id }}">
+                                <p><b>Technologies Using</b> (click here to toggle the content)</p>
                             </div>
-                            <div id="technologiesContent" style="display: none;">
+                            <div id="technologiesContent_{{ $item->id }}" style="display: none;">
                                 {!! $item->technologies !!}
                             </div>
                         </div><br>
                         <div>
-                            <div id="description">
-                                <p><b>Description About Internship</b> (click to toggle content)</p>
+                            <div id="description_{{ $item->id }}">
+                                <p><b>Description About Internship</b> (click here to toggle the content)</p>
                             </div>
-                            <div id="descriptionContent" style="display: none;">
+                            <div id="descriptionContent_{{ $item->id }}" style="display: none;">
                                 {!! $item->description !!}
                             </div>
                         </div>
                         <script>
                             // Get a reference to the description content and the paragraph containing the text
-                            const descriptionContent = document.getElementById('descriptionContent');
-                            const descriptionText = document.getElementById('description');
+                            const descriptionContent_{{ $item->id }} = document.getElementById('descriptionContent_{{ $item->id }}');
+                            const descriptionText_{{ $item->id }} = document.getElementById('description_{{ $item->id }}');
 
-                            const technologiesContent = document.getElementById('technologiesContent');
-                            const technologiesText = document.getElementById('technologies');
+                            const technologiesContent_{{ $item->id }} = document.getElementById('technologiesContent_{{ $item->id }}');
+                            const technologiesText_{{ $item->id }} = document.getElementById('technologies_{{ $item->id }}');
 
                             // Add a click event listener to the text
-                            descriptionText.addEventListener('click', () => {
+                            descriptionText_{{ $item->id }}.addEventListener('click', () => {
                                 // Toggle the visibility of the content
-                                if (descriptionContent.style.display === 'none' || descriptionContent.style.display === '') {
-                                    descriptionContent.style.display = 'block';
+                                if (descriptionContent_{{ $item->id }}.style.display === 'none' || descriptionContent_{{ $item->id }}.style.display === '') {
+                                    descriptionContent_{{ $item->id }}.style.display = 'block';
                                 } else {
-                                    descriptionContent.style.display = 'none';
+                                    descriptionContent_{{ $item->id }}.style.display = 'none';
                                 }
                             });
 
-                            technologiesText.addEventListener('click', () => {
+                            technologiesText_{{ $item->id }}.addEventListener('click', () => {
                                 // Toggle the visibility of the content
-                                if (technologiesContent.style.display === 'none' || technologiesContent.style.display === '') {
-                                    technologiesContent.style.display = 'block';
+                                if (technologiesContent_{{ $item->id }}.style.display === 'none' || technologiesContent_{{ $item->id }}.style.display === '') {
+                                    technologiesContent_{{ $item->id }}.style.display = 'block';
                                 } else {
-                                    technologiesContent.style.display = 'none';
+                                    technologiesContent_{{ $item->id }}.style.display = 'none';
                                 }
                             });
                         </script>
