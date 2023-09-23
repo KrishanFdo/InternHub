@@ -88,8 +88,8 @@ class RegisterController extends Controller
         $supervisor = $request->input('supervisor');
         $s_email = $request->input('s_email');
         $s_mobile = $request->input('s_mobile');
-        $technologies = $request->input('technologies');
-        $description = $request->input('description');
+        $technologies = nl2br($request->input('technologies'));
+        $description = nl2br($request->input('description'));
 
         if($request->input("company")=="Other")
             $company = $request->input("other-company");

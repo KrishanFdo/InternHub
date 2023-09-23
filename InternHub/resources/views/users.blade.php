@@ -296,20 +296,28 @@
                         </div><br>
 
                         <div>
-                            <p><b>Technologies</b><br> {{ $item->technologies }}</p>
+                            <div id="technologies">
+                                <p><b>Technologies Using</b> (click to toggle content)</p>
+                            </div>
+                            <div id="technologiesContent" style="display: none;">
+                                {!! $item->technologies !!}
+                            </div>
                         </div><br>
                         <div>
                             <div id="description">
                                 <p><b>Description About Internship</b> (click to toggle content)</p>
-                            </div><br>
+                            </div>
                             <div id="descriptionContent" style="display: none;">
-                                {{ $item->description }}
+                                {!! $item->description !!}
                             </div>
                         </div>
                         <script>
                             // Get a reference to the description content and the paragraph containing the text
                             const descriptionContent = document.getElementById('descriptionContent');
                             const descriptionText = document.getElementById('description');
+
+                            const technologiesContent = document.getElementById('technologiesContent');
+                            const technologiesText = document.getElementById('technologies');
 
                             // Add a click event listener to the text
                             descriptionText.addEventListener('click', () => {
@@ -318,6 +326,15 @@
                                     descriptionContent.style.display = 'block';
                                 } else {
                                     descriptionContent.style.display = 'none';
+                                }
+                            });
+
+                            technologiesText.addEventListener('click', () => {
+                                // Toggle the visibility of the content
+                                if (technologiesContent.style.display === 'none' || technologiesContent.style.display === '') {
+                                    technologiesContent.style.display = 'block';
+                                } else {
+                                    technologiesContent.style.display = 'none';
                                 }
                             });
                         </script>

@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('mobile',25);
             $table->float('gpa');
             $table->string('special',5);
-            $table->integer('credits');
+            $table->float('credits');
             $table->string('company',100);
             $table->string('c_address');
             $table->string('hr_number',25);
