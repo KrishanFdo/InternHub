@@ -47,7 +47,7 @@
             <button class="btn px-1 py-0 open-btn me-2"><i class="fa-solid fa-bars-staggered"></i></button>
             <a class="navbar-brand fs-4" href="#"></a>
             </div>
-            <button class="navbar-toggler p-0 border-0 " type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler p-0 border-0 " type="button" onclick="toggleContent()">
 
                 <i class="fa-solid fa-bars"></i>
             </button>
@@ -76,6 +76,12 @@
 
               </ul>
             </div>
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            <script>
+            function toggleContent() {
+                $('#navbarSupportedContent').toggleClass('show');
+            }
+            </script>
         </div>
           </nav>
 
@@ -91,12 +97,12 @@
                 @endif
 
                 <br>
-                <form style="margin-left: 5px;" class="form-group" action="<?=url('/filtered-registers')?>" method="GET">
+                <form style="margin-left: 0.5%;" class="form-group" action="<?=url('/filtered-registers')?>" method="GET">
                     <div style=" display: flex;">
 
-                        <div style="margin-left: 10px;">
+                        <div style="margin-left: 1%;">
                             <label for="scnumber">SC Number</label>
-                            <input type="text" class="form-control" id="scnumber" name="scnumber" style="width: 200px" value="{{ $selectedscnumber }}">
+                            <input type="text" class="form-control" id="scnumber" name="scnumber" value="{{ $selectedscnumber }}">
                             <div class="scnumber-select" id="scnumber-select">
                                 <div class="select-scnumbers">
                                     <!-- Dynamic options will be inserted here -->
@@ -104,9 +110,9 @@
                             </div>
                         </div>
 
-                        <div style="margin-left: 10px;">
+                        <div style="margin-left: 1%;">
                             <label for="company">Company</label>
-                            <input type="text" class="form-control" id="company" name="company" style="width: 200px" value="{{ $selectedcompany }}">
+                            <input type="text" class="form-control" id="company" name="company" value="{{ $selectedcompany }}">
                             <div class="company-select" id="company-select">
                                 <div class="select-companies">
                                     <!-- Dynamic options will be inserted here -->
@@ -114,9 +120,9 @@
                             </div>
                         </div>
 
-                        <div style="margin-left: 10px;">
+                        <div style="margin-left: 1%;">
                             <label for="special">Expecting Special</label>
-                            <select class="form-select" id="special" name="special" style="width: 200px" value="{{ $selectedspecial }}">
+                            <select class="form-select" id="special" name="special" value="{{ $selectedspecial }}">
                                 <option value="" {{ $selectedspecial == "" ? 'selected' : '' }}>All</option>
                                 <option value="YES" {{ $selectedspecial == 'YES' ? 'selected' : '' }}>YES</option>
                                 <option value="NO" {{ $selectedspecial == 'NO' ? 'selected' : '' }}>NO</option>
@@ -125,14 +131,14 @@
 
                     </div>
                     <div style=" display: flex;">
-                        <button type="submit" class="btn btn-primary btn-md col-sm-4" style="width: 150px; height: 40px; margin-left: 10px; margin-top: 20px;">Apply Filters</button>
-                        <button type="reset" id="customResetButton" class="btn btn-secondary btn-md col-sm-4" style="width: 150px; height: 40px; margin-left: 10px; margin-top: 20px;">Reset</button>
+                        <button type="submit" class="btn btn-primary btn-md col-sm-4" style="width: 15%; height: 5%; margin-left: 1%; margin-top: 2.1%;">Apply Filters</button>
+                        <button type="reset" id="customResetButton" class="btn btn-secondary btn-md col-sm-4" style="width: 15%; height: 5%; margin-left: 1%; margin-top: 2%;">Reset</button>
 
                         @if(count($data)!=0)
                             @if(count($data)==1)
-                                <h5 style="margin-top: 30px; margin-left: 10px; color:rgba(189, 61, 10, 0.925)">{{ count($data) }} Intern Available</h5>
+                                <h5 style="margin-top: 3%; margin-left: 1%; color:rgba(189, 61, 10, 0.925)">{{ count($data) }} Intern Available</h5>
                             @else
-                                <h5 style="margin-top: 30px; margin-left: 10px; color:rgba(189, 61, 10, 0.925)">{{ count($data) }} Interns Available</h5>
+                                <h5 style="margin-top: 3%; margin-left: 1%; color:rgba(189, 61, 10, 0.925)">{{ count($data) }} Interns Available</h5>
                             @endif
                         @endif
                     </div>
@@ -236,11 +242,11 @@
                     <div class="user-avatar">
                         <div style="display: flex;">
                         <img src="{{ asset('storage/'.$item->imgpath) }}" alt="User Avatar">
-                        <div style=" margin-top: 40px; margin-left: 10px">
+                        <div style="margin-top: 4%; margin-left: 1%;">
                             <h4 style="color: blue;">{{ $item->name }}</h4>
                             <h5 style="color: blue;">{{ $item->scnumber }}</h5>
                         </div>
-                        <div style="float:right; margin-top: 30px; margin-right: 20px;">
+                        <div style="float:right; margin-top: 2.5%; margin-right: 1%;">
                         <div class="container">
                             <form id="{{ $item->id }}" action="<?=url('/accept')?>" method="POST">
                                 @csrf
@@ -287,7 +293,7 @@
                                 <p><b>Company:</b> {{ $item->company }}</p>
                                 <p><b>HR Number:</b> {{ $item->hr_number }}</p>
                             </div>
-                            <div style="margin-left: 5%">
+                            <div style="margin-left: 10%">
                                 <p><b>Started Date:</b> {{ $item->s_date }}</p>
                                 <p><b>Supervisor:</b> {{ $item->supervisor }}</p>
                                 <p><b>Supervisor Email:</b> {{ $item->s_email }}</p>

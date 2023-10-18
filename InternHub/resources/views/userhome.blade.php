@@ -44,7 +44,7 @@
             <button class="btn px-1 py-0 open-btn me-2"><i class="fa-solid fa-bars-staggered"></i></button>
             <a class="navbar-brand fs-4" href="#"></a>
             </div>
-            <button class="navbar-toggler p-0 border-0 " type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler p-0 border-0 " type="button" onclick="toggleContent()">
 
                 <i class="fa-solid fa-bars"></i>
             </button>
@@ -73,11 +73,44 @@
 
               </ul>
             </div>
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            <script>
+            function toggleContent() {
+                $('#navbarSupportedContent').toggleClass('show');
+            }
+            </script>
         </div>
           </nav>
 
           <br><br>
 
           <h1>Welcome {{ auth()->user()->name }}</h1>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+   <script src="https://kit.fontawesome.com/c752b78af3.js" crossorigin="anonymous"></script>
+
+
+   <script>
+    $(".sidebar ul li").on('click', function() {
+            $(".sidebar ul li.active").removeClass('active');
+            $(this).addClass('active');
+
+        })
+
+        $('.open-btn').on('click',function(){
+     $('.sidebar').addClass('active');
+        })
+
+        $('.close-btn').on('click',function(){
+     $('.sidebar').removeClass('active');
+        })
+
+
+
+    </script>
 </body>
 </html>
