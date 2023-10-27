@@ -171,14 +171,21 @@
                     $date = $date_obj->format('Y-m-d');
                 @endphp
                 <div class="report-container" id="report-{{ $key }}">
-                    <div class="report-title" onclick="toggleReport({{ $key }})">Report {{ $loop->iteration }} - {{ $date}}</div>
+                    <div class="report-title" onclick="toggleReport({{ $key }})">{{ $report->period }} - {{ $date}}</div>
                     <div class="report-content" style="display: none;">
-                        <h5>Question 1</h5>
-                        <p>{{ $report->a1 }}</p>
-                        <h5>Question 2</h5>
-                        <p>{{ $report->a2 }}</p>
-                        <h5>Question 3</h5>
-                        <p>{{ $report->a3 }}</p>
+                        <h5 style="color: rgb(153, 2, 27);">Projects Involved</h5>
+                        <p>{!! $report->projects !!}</p>
+                        <h5 style="color: rgb(153, 2, 27);">Tasks Completed</h5>
+                        <p>{!! $report->tasks_completed !!}</p>
+                        <h5 style="color: rgb(153, 2, 27);">New Technolgies Learned</h5>
+                        <p>{!! $report->technologies_learned !!}</p>
+                        <h5 style="color: rgb(153, 2, 27);">Technologies Used</h5>
+                        <p>{!! $report->technologies_used !!}</p>
+                        <h5 style="color: rgb(153, 2, 27);">Problems Encountered</h5>
+                        <p>{!! $report->problems_encountered !!}</p>
+                        <h5 style="color: rgb(153, 2, 27);">Small Description</h5>
+                        <p>{!! $report->description !!}</p>
+
                     </div>
                 </div><br>
             @endforeach

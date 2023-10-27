@@ -129,7 +129,7 @@
 
                     <div class="form-group" style="margin-left: 1%">
                         <label for="mobile">Mobile</label>
-                        <input type="text" id="mobile" name="mobile" value="{{ $user->mobile }}" class="form-control" readonly>
+                        <input type="text" id="mobile" name="mobile" value="{{ $user->mobile }}" class="form-control">
                         @error('mobile')
                             <label class="alert alert-danger">{{ $message }}</label>
                         @enderror
@@ -168,12 +168,14 @@
                     </div>
                 </div><br>
 
+                <div style="display: none">
                 <h5 style="color: blue">Industrial Training Details</h5>
 
                 <div style="display:flex;">
                     <div class="form-group">
                         <label for="company">Company</label>
-                        <select name="company" id="company" class="form-select">
+                        <input type="text" id="company" name="company" value="{{ $user->company }}" class="form-control" readonly>
+                        {{--  <select name="company" id="company" class="form-select" readonly>
                             <option value="" disabled selected>Select</option>
                             <option value="WSO2" {{ $user->company === 'WSO2' ? 'selected' : '' }}>WSO2</option>
                             <option value="ITX 360" {{ $user->company === 'ITX 360' ? 'selected' : '' }}>ITX 360</option>
@@ -197,7 +199,7 @@
                             <option value="IFS" {{ $user->company === 'IFS' ? 'selected' : '' }}>IFS</option>
                             <option value="DCS" {{ $user->company === 'DCS' ? 'selected' : '' }}>DCS</option>
                             <option value="Other" {{ $user->company === 'Other' ? 'selected' : '' }}>Other</option>
-                        </select>
+                        </select>  --}}
                         @error('company')
                             <label class="alert alert-danger">{{ $message }}</label>
                         @enderror
@@ -230,14 +232,14 @@
 
                     <div id="hidden_html_tag" class="form-group" style="display: none; margin-left: 1%">
                         <label for="other-company">Other Company</label>
-                        <input type="text" class="form-control" placeholder="Enter Company Name" name="other-company" required>
+                        <input type="text" class="form-control" placeholder="Enter Company Name" name="other-company" readonly>
                     </div>
                 </div><br>
 
                 <div style="display:flex;">
                     <div class="form-group">
                         <label for="c_address">Company Address</label>
-                        <input type="text" id="c_address" name="c_address" value="{{ $user->c_address }}" class="form-control">
+                        <input type="text" id="c_address" name="c_address" value="{{ $user->c_address }}" class="form-control" readonly>
                         @error('c_address')
                             <label class="alert alert-danger">{{ $message }}</label>
                         @enderror
@@ -245,7 +247,7 @@
 
                     <div class="form-group" style="margin-left: 1%">
                         <label for="hr_number">HR Number</label>
-                        <input type="text" id="hr_number" name="hr_number" value="{{ $user->hr_number }}" class="form-control">
+                        <input type="text" id="hr_number" name="hr_number" value="{{ $user->hr_number }}" class="form-control" readonly>
                         @error('hr_number')
                             <label class="alert alert-danger">{{ $message }}</label>
                         @enderror
@@ -255,7 +257,7 @@
                 <div style="display:flex;">
                     <div class="form-group">
                         <label for="s_date">Started Date</label>
-                        <input type="date" id="s_date" name="s_date" value="{{ $user->s_date }}" class="form-control">
+                        <input type="date" id="s_date" name="s_date" value="{{ $user->s_date }}" class="form-control" readonly>
                         @error('s_date')
                             <label class="alert alert-danger">{{ $message }}</label>
                         @enderror
@@ -263,7 +265,7 @@
 
                     <div class="form-group" style="margin-left: 1%">
                         <label for="e_date">Ending Date</label>
-                        <input type="date" id="e_date" name="e_date" value="{{ $user->e_date }}" class="form-control">
+                        <input type="date" id="e_date" name="e_date" value="{{ $user->e_date }}" class="form-control" readonly>
                         @error('e_date')
                             <label class="alert alert-danger">{{ $message }}</label>
                         @enderror
@@ -273,7 +275,7 @@
                 <div style="display:flex;">
                     <div class="form-group">
                         <label for="supervisor">Supervisor</label>
-                        <input type="text" id="supervisor" name="supervisor" value="{{ $user->supervisor }}" class="form-control">
+                        <input type="text" id="supervisor" name="supervisor" value="{{ $user->supervisor }}" class="form-control" readonly>
                         @error('supervisor')
                             <label class="alert alert-danger">{{ $message }}</label>
                         @enderror
@@ -281,7 +283,7 @@
 
                     <div class="form-group" style="margin-left: 1%">
                         <label for="s_email">Email of Supervisor</label>
-                        <input type="text" id="s_email" name="s_email" value="{{ $user->s_email }}" class="form-control">
+                        <input type="text" id="s_email" name="s_email" value="{{ $user->s_email }}" class="form-control" readonly>
                         @error('s_email')
                             <label class="alert alert-danger">{{ $message }}</label>
                         @enderror
@@ -291,7 +293,7 @@
                 <div style="display:flex;">
                     <div class="form-group">
                         <label for="s_mobile">Supervisor Number</label>
-                        <input type="text" id="s_mobile" name="s_mobile" value="{{ $user->s_mobile }}" class="form-control">
+                        <input type="text" id="s_mobile" name="s_mobile" value="{{ $user->s_mobile }}" class="form-control" readonly>
                         @error('s_mobile')
                             <label class="alert alert-danger">{{ $message }}</label>
                         @enderror
@@ -300,7 +302,7 @@
 
                 <div class="form-group">
                     <label for="technologies">Technologies you are using in the Training Setup</label>
-                    <textarea rows="5" cols="20" name="technologies" class="form-control">{!! str_replace('<br />', "", $user->technologies) !!}</textarea>
+                    <textarea rows="5" cols="20" name="technologies" class="form-control" readonly>{!! str_replace('<br />', "", $user->technologies) !!}</textarea>
                     @error('technologies')
                         <label class="alert alert-danger">{{ $message }}</label>
                     @enderror<br>
@@ -311,7 +313,7 @@
                         <label>Description about Training Setup (150 words)</label>
                         <div id="wordCount">: Word Count: 0</div>
                     </div>
-                    <textarea rows="10" cols="20" id="description" name="description" class="form-control">{!! str_replace('<br />', "", $user->description) !!}</textarea>
+                    <textarea rows="10" cols="20" id="description" name="description" class="form-control" readonly>{!! str_replace('<br />', "", $user->description) !!}</textarea>
                     @error('description')
                         <label class="alert alert-danger">{{ $message }}</label>
                     @enderror<br>
@@ -342,7 +344,7 @@
                         updateWordCount();
                     });
                 </script>
-
+                </div>
 
                 <br>
                 <button type="submit" class="btn btn-primary" id="updateProfileBtn">Update Profile</button>
