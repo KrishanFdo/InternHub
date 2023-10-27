@@ -5,6 +5,7 @@ use App\Http\Controllers\MailController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ExportController;
+use App\Http\Controllers\ProgressReportController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -41,7 +42,7 @@ Route::get('/userhome', function () {
 
 Route::get('/user-reset-password', function(){
     return view('user_reset_password');
-})->middleware('web');
+})->middleware('auth:web');
 
 Route::post('/register-submit',[RegisterController::class,'register']);
 Route::get('/admin-accept',[RegisterController::class,'admin_accept'])->middleware('auth:webadmin');
@@ -55,6 +56,9 @@ Route::delete('/delete-user',[UserController::class,'delete_user'])->middleware(
 Route::get('/filtered-users', [UserController::class,'filtered_users'])->middleware('auth:webadmin');
 Route::get('/filtered-members', [UserController::class,'filtered_members'])->middleware('auth:web');
 Route::post('/update-user-password',[UserController::class,'update_user_password'])->middleware('auth:web');
+Route::get('/profile/edit', [UserController::class,'edit'])->middleware('auth:web');
+Route::put('/profile/update', [UserController::class,'update'])->middleware('auth:web');
+
 
 
 Route::post('/authenticate',[LoginController::class,'authenticate']);
@@ -62,3 +66,8 @@ Route::post('/logout',[LoginController::class,'logout']);
 Route::post('/adminlogout',[LoginController::class,'adminlogout']);
 
 Route::get('/export-users',[ExportController::class,'exportFilteredUsers'])->middleware('auth:webadmin');
+
+Route::get('/submit_report',[ProgressReportController::class,'show'])->middleware('auth:web');
+Route::post('/submit_report', [ProgressReportController::class,'submit_report'])->middleware('auth:web');
+Route::get('/reports',[ProgressReportController::class,'reports'])->middleware('auth:webadmin');
+Route::post('/filtered-reports',[ProgressReportController::class,'filtered_reports'])->middleware('auth:webadmin');

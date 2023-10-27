@@ -30,10 +30,10 @@
 
 
         <ul class="list-unstyled px-2 ">
-            <li class="active"><a href="<?=url('/home')?>" class="text-decoration-none px-3 py-3 d-block">HOME</a></li>
-            <li class=""><a href="/admin-accept" class="text-decoration-none px-3 py-3 d-block">NEWLY REGISTERED</a></li>
-            <li class=""><a href="/users" class="text-decoration-none px-3 py-3 d-block">INTERNS</a></li>
-            <li class=""><a href="/reports" class="text-decoration-none px-3 py-3 d-block">REPORTS</a></li>
+            <li class=""><a href="<?=url('/userhome')?>" class="text-decoration-none px-3 py-3 d-block">HOME</a></li>
+            <li class=""><a href="/user-reset-password" class="text-decoration-none px-3 py-3 d-block">CHANGE PASSWORD</a></li>
+            <li class=""><a href="/profile/edit" class="text-decoration-none px-3 py-3 d-block">UPDATE PROFILE</a></li>
+            <li class="active"><a href="/submit_report" class="text-decoration-none px-3 py-3 d-block">SUBMIT REPORT</a></li>
         </ul>
 
 
@@ -58,7 +58,7 @@
                 </li>-->
                 <nav class="navbar navbar-expand-md py-3 navbar-light bg-light ">
                     <img src="" class="avatar">
-                    <form id="logout" method="POST" action="<?=url('/adminlogout')?>">
+                    <form id="logout" method="POST" action="<?=url('/logout')?>">
                         @csrf
                         <input type="submit" class="btn btn-secondary default btn" onclick="confirmlogout(event)" value="Logout" name="logout" />
                     </form>
@@ -84,11 +84,87 @@
         </div>
           </nav>
 
-          <br><br>
+          <br>
 
-          <h1>Welcome {{ auth()->guard('webadmin')->user()->fname }}</h1>
+          <div style="margin-left: 1%">
+
+            <h5 style="color: rgb(255, 166, 0)">Submitted Reports: {{ $reports->count() }}</h5>
+
+            @if(session('success'))
+                <div class="alert alert-success">{{ session('success') }}</div>
+            @endif
+            @if(session('fail'))
+                <div class="alert alert-danger">{{ session('fail') }}</div>
+            @endif
+
+            <form id="submitform" action="<?=url('/submit_report')?>" method="POST">
+                <h5 style="color: blue">Progress Report</h5>
+                @csrf
+
+                <div class="form-group">
+                    <label for="a1">Question 1</label>
+                    <textarea rows="1" id="a1" name="a1" class="form-control">{{ old('a1') }}</textarea>
+                    @error('a1')
+                        <label class="alert alert-danger">This Field is Required</label>
+                    @enderror
+                </div>
+
+                <div class="form-group">
+                    <label for="a2">Question 2</label>
+                    <textarea rows="1" id="a2" name="a2" class="form-control">{{ old('a2') }}</textarea>
+                    @error('a2')
+                        <label class="alert alert-danger">This Field is Required</label>
+                    @enderror
+                </div>
+
+                <div class="form-group">
+                    <label for="a3">Question 3</label>
+                    <textarea rows="1" id="a3" name="a3" class="form-control">{{ old('a3') }}</textarea>
+                    @error('a3')
+                        <label class="alert alert-danger">This Field is Required</label>
+                    @enderror
+                </div>
+
+                <br>
+                <input type="submit" class="btn btn-primary" id="submitBtn" value="Submit"></input>
+                <button type="button" id="customResetButton" class="btn btn-secondary">Reset</button>
+            </form>
+            <script>
+                // Get the button element
+                const submitBtn = document.getElementById('submitBtn');
+
+                // Add an event listener to the button
+                submitBtn.addEventListener('click', function (event) {
+                  // Prevent the default form submission behavior
+                  event.preventDefault();
+
+                  // Display a confirmation dialog
+                  const result = confirm('Are you sure you want to submit?');
+
+                  // If the user clicks "OK," submit the form
+                  if (result) {
+                    document.getElementById('submitform').submit();
+                  }
+                });
+              </script>
+
+              <script>
+                // Get the "Reset" button element
+                const resetBtn = document.getElementById('customResetButton');
+
+                // Add an event listener to the button
+                resetBtn.addEventListener('click', function () {
+                    // Define the route URL you want to navigate to
+                    const routeURL = '/submit_report';
+
+                    // Navigate to the specified route
+                    window.location.href = routeURL;
+                });
+            </script>
+        </div>
         </div>
     </div>
+
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
@@ -114,5 +190,6 @@
 
 
     </script>
+    <br>
 </body>
 </html>
