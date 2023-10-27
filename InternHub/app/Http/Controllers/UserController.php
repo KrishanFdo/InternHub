@@ -14,6 +14,7 @@ use App\Mail\UserPasswordChange;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\File;
 use Exception;
+use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
@@ -166,5 +167,92 @@ class UserController extends Controller
         $u->save();
 
         return redirect()->back()->with('success', 'Password Changed successfully.');
+    }
+
+    public function edit()
+    {
+        // Fetch the user's current profile data
+        $user = auth()->user();
+
+        return view('profileedit', compact('user'));
+    }
+
+    public function update(Request $request)
+    {
+
+        Validator::extend('scnumber', function ($attribute, $value, $parameters, $validator) {
+            // Define the pattern for the custom code (SC/Year/Digits)
+            $pattern = '/^SC\/\d{4}\/\d{4,5}$/';
+
+            // Use preg_match to check if the value matches the pattern
+            return preg_match($pattern, $value) === 1;
+        });
+
+        Validator::replacer('scnumber', function ($message, $attribute, $rule, $parameters) {
+            return str_replace(':attribute', $attribute, 'Invalid format. Correct format is "SC/YYYY/NNNNN".');
+        });
+
+        Validator::extend('mobile', function ($attribute, $value, $parameters, $validator) {
+            // Define the pattern for the custom code (SC/Year/Digits)
+            $pattern = '/^\+94\d{9}$/';
+            $pattern2 = '/^0\d{9}$/';
+            // Use preg_match to check if the value matches the pattern
+            return preg_match($pattern, $value) || preg_match($pattern2, $value);
+        });
+
+        Validator::replacer('mobile', function ($message, $attribute, $rule, $parameters) {
+            return str_replace(':attribute', $attribute, 'Invalid format. Correct format is +94XXXXXXXXX or 0#########.');
+        });
+
+        Validator::extend('min_words', function ($attribute, $value, $parameters, $validator) {
+            $wordCount = str_word_count($value);
+            return $wordCount >= 150;
+        });
+
+        Validator::replacer('min_words', function ($message, $attribute, $rule, $parameters) {
+            return str_replace(':attribute', $attribute, 'There should be minimum 150 words.');
+        });
+
+       $request->validate([
+            //personal details
+            /*'name'=>'required',
+            'mobile'=>'required|mobile',
+            "scnumber"=>'required|scnumber|unique:registers,scnumber|unique:users,scnumber',
+            'email' => 'required|email|unique:registers,email|unique:users,email',*/
+            'special'=>'required',
+            'gpa'=>['required', 'numeric', 'regex:/^\d+(\.\d{1,2})?$/'],
+            'credits'=>['required', 'numeric', 'regex:/^\d+(\.\d{1,2})?$/'],
+            'image' => 'image|mimes:jpeg,png,jpg,gif,HEIC,HEIF|max:5128',
+
+            //industrial training details
+            'company'=>'required',
+            'c_address'=>'required',
+            'hr_number'=>'required|mobile',
+            's_date'=>'required|date',
+            'e_date'=>'required|date',
+            'supervisor'=>'required',
+            's_email'=>'required|email',
+            's_mobile'=>'required|mobile',
+            'technologies'=>'required',
+            'description'=>'required|min_words'
+        ]);
+        // Fetch the user's current profile data
+        $id = Auth::user()->id;
+        $user = User::find($id);
+
+        $requestData = $request->all();
+        $requestData['description'] = nl2br($requestData['description']);
+        $requestData['technologies'] = nl2br($requestData['technologies']);
+
+        try{
+            $user->update($requestData);
+            $user = User::find($id);
+
+            return redirect()->back()->with('success', 'Profile updated successfully')->with('user', $user);
+        }
+        catch(Exception $e){
+            return redirect()->back()->with('fail','Update Fail')->with('user',$user);
+        }
+
     }
 }

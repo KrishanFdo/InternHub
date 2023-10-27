@@ -1,0 +1,28 @@
+/* Container Styles */
+.report-container {
+    max-width: 100%;
+    padding: 20px;
+    margin: 0 auto;
+    background-color: #f2f2f2;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .report-container {
+        padding: 10px;
+    }
+}
+
+/* Text Styles */
+.report-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: rgb(0, 38, 255);
+}
+
+.report-content {
+    font-size: 16px;
+}
