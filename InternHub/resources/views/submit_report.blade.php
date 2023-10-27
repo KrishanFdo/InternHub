@@ -102,25 +102,65 @@
                 @csrf
 
                 <div class="form-group">
-                    <label for="a1">Question 1</label>
-                    <textarea rows="1" id="a1" name="a1" class="form-control">{{ old('a1') }}</textarea>
-                    @error('a1')
+                    <label for="period">What is the time period?</label>
+                    <select class="form-select" name="period">
+                        <option value="" disabled selected>Select</option>
+                        <option value="Week1-Week4" {{ old('period') === 'Week1-Week4' ? 'selected' : '' }}>Week1-Week4</option>
+                        <option value="Week5-Week8" {{ old('period') === 'Week5-Week8' ? 'selected' : '' }}>Week5-Week8</option>
+                        <option value="Week9-Week12" {{ old('period') === 'Week9-Week12' ? 'selected' : '' }}>Week9-Week12</option>
+                        <option value="Week13-Week16" {{ old('period') === 'Week13-Week16' ? 'selected' : '' }}>Week13-Week16</option>
+                        <option value="Week17-Week20" {{ old('period') === 'Week17-Week20' ? 'selected' : '' }}>Week17-Week20</option>
+                        <option value="Week21-Week24" {{ old('period') === 'Week21-Week24' ? 'selected' : '' }}>Week21-Week24</option>
+                    </select>
+                    @error('period')
+                        <label class="alert alert-danger">{{ $message }}</label>
+                    @enderror
+                </div>
+
+                <div class="form-group">
+                    <label for="projects">What are the projects involed?</label>
+                    <textarea rows="2" id="a2" name="projects" class="form-control">{{ old('projects') }}</textarea>
+                    @error('projects')
                         <label class="alert alert-danger">This Field is Required</label>
                     @enderror
                 </div>
 
                 <div class="form-group">
-                    <label for="a2">Question 2</label>
-                    <textarea rows="1" id="a2" name="a2" class="form-control">{{ old('a2') }}</textarea>
-                    @error('a2')
+                    <label for="tasks_completed">What are the tasks completed?</label>
+                    <textarea rows="3" id="tasks_completed" name="tasks_completed" class="form-control">{{ old('tasks_completed') }}</textarea>
+                    @error('tasks_completed')
                         <label class="alert alert-danger">This Field is Required</label>
                     @enderror
                 </div>
 
                 <div class="form-group">
-                    <label for="a3">Question 3</label>
-                    <textarea rows="1" id="a3" name="a3" class="form-control">{{ old('a3') }}</textarea>
-                    @error('a3')
+                    <label for="technologies_learned">What are the new technologies learned?</label>
+                    <textarea rows="3" id="technologies_learned" name="technologies_learned" class="form-control">{{ old('technologies_learned') }}</textarea>
+                    @error('technologies_learned')
+                        <label class="alert alert-danger">This Field is Required</label>
+                    @enderror
+                </div>
+
+                <div class="form-group">
+                    <label for="technologies_used">What are the technologies used?</label>
+                    <textarea rows="3" id="technologies_used" name="technologies_used" class="form-control">{{ old('technologies_used') }}</textarea>
+                    @error('technologies_used')
+                        <label class="alert alert-danger">This Field is Required</label>
+                    @enderror
+                </div>
+
+                <div class="form-group">
+                    <label for="problems_encountered'">What are the problems encountered?</label>
+                    <textarea rows="3" id="problems_encountered" name="problems_encountered" class="form-control">{{ old('problems_encountered') }}</textarea>
+                    @error('problems_encountered')
+                        <label class="alert alert-danger">This Field is Required</label>
+                    @enderror
+                </div>
+
+                <div class="form-group">
+                    <label for="description">Small description about what you have done in the above time period</label>
+                    <textarea rows="5" id="description" name="description" class="form-control">{{ old('description') }}</textarea>
+                    @error('description')
                         <label class="alert alert-danger">This Field is Required</label>
                     @enderror
                 </div>

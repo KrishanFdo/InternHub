@@ -12,17 +12,23 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('progress_reports', function (Blueprint $table) {
-            $table->id();
             $table->unsignedBigInteger('s_id');
+            $table->string('period');
+            $table->text('projects');
+            $table->text('tasks_completed');
+            $table->text('technologies_learned');
+            $table->text('technologies_used');
+            $table->text('problems_encountered');
+            $table->text('description');
+            $table->timestamps();
+
             $table->foreign('s_id')
                 ->references('id')
                 ->on('users')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->text('a1');
-            $table->text('a2');
-            $table->text('a3');
-            $table->timestamps();
+
+            $table->primary(['s_id', 'period']);
         });
     }
 
@@ -33,6 +39,7 @@ return new class extends Migration
     {
         Schema::table('progress_reports', function (Blueprint $table) {
             $table->dropForeign(['s_id']);
+            $table->bigInteger('id')->change();
         });
 
         Schema::dropIfExists('progress_reports');

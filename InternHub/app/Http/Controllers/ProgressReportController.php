@@ -6,6 +6,7 @@ use App\Models\ProgressReport;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Exception;
+use App\Rules\UniqueReportForUser;
 
 class ProgressReportController extends Controller
 {
@@ -16,16 +17,24 @@ class ProgressReportController extends Controller
     }
     public function submit_report(Request $request){
         $request->validate([
-            'a1'=>'required',
-            'a2'=> 'required',
-            'a3'=> 'required',
+            'period'=>['required', new UniqueReportForUser],
+            'projects'=> 'required',
+            'tasks_completed'=> 'required',
+            'technologies_learned'=>'required',
+            'technologies_used'=>'required',
+            'problems_encountered'=>'required',
+            'description'=>'required',
         ]);
 
         $report = new ProgressReport();
         $report->s_id = auth()->user()->id;
-        $report->a1 = $request->a1;
-        $report->a2 = $request->a2;
-        $report->a3 = $request->a3;
+        $report->period = $request->period;
+        $report->projects = nl2br($request->projects);
+        $report->tasks_completed = nl2br($request->tasks_completed);
+        $report->technologies_learned = nl2br($request->technologies_learned);
+        $report->technologies_used = nl2br($request->technologies_used);
+        $report->problems_encountered = nl2br($request->problems_encountered);
+        $report->description = nl2br($request->description);
 
         try{
             $report->save();
@@ -40,7 +49,7 @@ class ProgressReportController extends Controller
 
     public function reports(){
         $scnumbers = User::distinct()->pluck('scnumber');
-        $reports = ProgressReport::where('id','')->get();
+        $reports = ProgressReport::where('s_id','')->get();
         $scnumber = null;
         $name = "";
         return view('progress_reports',compact('scnumbers','reports','scnumber','name'));

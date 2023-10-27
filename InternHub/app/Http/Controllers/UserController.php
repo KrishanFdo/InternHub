@@ -215,26 +215,26 @@ class UserController extends Controller
 
        $request->validate([
             //personal details
-            /*'name'=>'required',
+            //'name'=>'required',
             'mobile'=>'required|mobile',
-            "scnumber"=>'required|scnumber|unique:registers,scnumber|unique:users,scnumber',
-            'email' => 'required|email|unique:registers,email|unique:users,email',*/
+            //"scnumber"=>'required|scnumber|unique:registers,scnumber|unique:users,scnumber',
+            //'email' => 'required|email|unique:registers,email|unique:users,email',
             'special'=>'required',
             'gpa'=>['required', 'numeric', 'regex:/^\d+(\.\d{1,2})?$/'],
             'credits'=>['required', 'numeric', 'regex:/^\d+(\.\d{1,2})?$/'],
-            'image' => 'image|mimes:jpeg,png,jpg,gif,HEIC,HEIF|max:5128',
+            //'image' => 'image|mimes:jpeg,png,jpg,gif,HEIC,HEIF|max:5128',
 
             //industrial training details
-            'company'=>'required',
-            'c_address'=>'required',
-            'hr_number'=>'required|mobile',
-            's_date'=>'required|date',
-            'e_date'=>'required|date',
-            'supervisor'=>'required',
-            's_email'=>'required|email',
-            's_mobile'=>'required|mobile',
-            'technologies'=>'required',
-            'description'=>'required|min_words'
+            // 'company'=>'required',
+            // 'c_address'=>'required',
+            // 'hr_number'=>'required|mobile',
+            // 's_date'=>'required|date',
+            // 'e_date'=>'required|date',
+            // 'supervisor'=>'required',
+            // 's_email'=>'required|email',
+            // 's_mobile'=>'required|mobile',
+            // 'technologies'=>'required',
+            // 'description'=>'required|min_words'
         ]);
         // Fetch the user's current profile data
         $id = Auth::user()->id;
