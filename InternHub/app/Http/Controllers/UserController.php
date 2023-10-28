@@ -222,7 +222,8 @@ class UserController extends Controller
             'special'=>'required',
             'gpa'=>['required', 'numeric', 'regex:/^\d+(\.\d{1,2})?$/'],
             'credits'=>['required', 'numeric', 'regex:/^\d+(\.\d{1,2})?$/'],
-            //'image' => 'image|mimes:jpeg,png,jpg,gif,HEIC,HEIF|max:5128',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,heic,heif|max:5128',
+
 
             //industrial training details
             // 'company'=>'required',
@@ -239,6 +240,18 @@ class UserController extends Controller
         // Fetch the user's current profile data
         $id = Auth::user()->id;
         $user = User::find($id);
+        if ($request->hasFile('image')) {
+            if ($user->imgpath !== 'images/default.png') {
+                File::delete('storage/'.$user->imgpath);
+            }
+            $image = $request->file('image');
+            $originalName = $image->getClientOriginalName();
+            $extension = $image->getClientOriginalExtension();
+            $filename = $this->generateUniqueFilename($originalName, $extension);
+
+            $imgpath = $image->storeAs('images',$filename,'public');
+            $user->imgpath = $imgpath;
+        }
 
         $requestData = $request->all();
         $requestData['description'] = nl2br($requestData['description']);
@@ -254,5 +267,33 @@ class UserController extends Controller
             return redirect()->back()->with('fail','Update Fail')->with('user',$user);
         }
 
+    }
+
+    private function generateUniqueFilename($originalName, $extension)
+    {
+        // You can use various strategies here to generate a unique filename
+        // For example, appending a timestamp or a random string to the original name.
+        $filename = pathinfo($originalName, PATHINFO_FILENAME);
+        $filename = Str::slug($filename); // Convert to a URL-friendly slug
+        $filename = $filename . '_' . time() . '.' . $extension;
+
+        return $filename;
+    }
+
+    public function remove_image(){
+        $user = User::find(Auth::user()->id);
+        if ($user->imgpath !== 'images/default.png') {
+            File::delete('storage/'.$user->imgpath);
+            $imgpath = 'images/default.png';
+            $user->imgpath = $imgpath;
+            try{
+                $user->save();
+                return redirect()->back()->with('user', $user);;
+            }
+            catch(Exception $e){
+                return redirect()->back()->with('fail','Update Fail')->with('user',$user);
+            }
+        }else
+            return redirect()->back();
     }
 }
