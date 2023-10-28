@@ -1,6 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <style>
+        .profile-image {
+            max-width: 30%;
+            margin-left: 1%;
+        }
+
+        .profile-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 20%;
+            margin-bottom: 1%;
+        }
+    </style>
 
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -95,7 +108,29 @@
                 <div class="alert alert-danger">{{ session('fail') }}</div>
             @endif
 
-            <form id="profileUpdateForm" action="<?=url('/profile/update')?>" method="POST">
+            <div class="profile-image">
+                <img src="{{ asset('storage/'.Auth::user()->imgpath) }}" alt="Profile Image">
+            </div><br>
+            <button class="btn btn-danger" style="margin-left: 1%" onclick="confirmRemoval()">Delete Photo</button>
+            <br><br>
+            <script>
+                function confirmRemoval() {
+                    if (confirm("Are you sure you want to delete the profile picture?")) {
+                        // If OK is clicked, redirect to the desired route
+                        window.location.href = '/remove_image';
+                    }
+                }
+            </script>
+            <form id="profileUpdateForm" action="<?=url('/profile/update')?>" method="POST" enctype="multipart/form-data">
+
+                <div>
+                    <label for="image">Update Profile Pic</label>
+                    <input type="file" name="image" id="image" class="form-control">
+                    @error('image')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
+                </div><br>
+
                 <h5 style="color: blue">Personal Details</h5>
                 @csrf
                 @method('PUT')

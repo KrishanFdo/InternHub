@@ -58,6 +58,7 @@ Route::get('/filtered-members', [UserController::class,'filtered_members'])->mid
 Route::post('/update-user-password',[UserController::class,'update_user_password'])->middleware('auth:web');
 Route::get('/profile/edit', [UserController::class,'edit'])->middleware('auth:web');
 Route::put('/profile/update', [UserController::class,'update'])->middleware('auth:web');
+Route::get('/remove_image', [UserController::class,'remove_image'])->middleware('auth:web');
 
 
 

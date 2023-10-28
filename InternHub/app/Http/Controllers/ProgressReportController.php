@@ -58,7 +58,17 @@ class ProgressReportController extends Controller
         $scnumber = $request->scnumber;
         $id = User::where('scnumber',$request->scnumber)->pluck('id')->first();
         $name = User::where('scnumber',$request->scnumber)->pluck('name')->first();
-        $reports = ProgressReport::where('s_id',$id)->get();
+        $reports = ProgressReport::where('s_id',$id)->orderByRaw(
+            "CASE
+                WHEN period = 'Week1-Week4' THEN 1
+                WHEN period = 'Week5-Week8' THEN 2
+                WHEN period = 'Week9-Week12' THEN 3
+                WHEN period = 'Week13-Week16' THEN 4
+                WHEN period = 'Week17-Week20' THEN 5
+                WHEN period = 'Week21-Week24' THEN 6
+                ELSE 5
+            END"
+        )->get();
         $scnumbers = User::distinct()->pluck('scnumber');
         return view('progress_reports',compact('scnumbers','reports','scnumber','name'));
     }
