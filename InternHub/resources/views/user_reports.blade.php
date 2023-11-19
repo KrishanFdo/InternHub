@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>InternHub-DCS | Interns</title>
+    <title>InternHub-DCS | My Reports</title>
 
     <!--bootstrap css-->
     <link href="{{ asset('css/userlist.css') }}" rel="stylesheet">
@@ -33,10 +33,11 @@
 
 
         <ul class="list-unstyled px-2 ">
-            <li class=""><a href="<?=url('/home')?>" class="text-decoration-none px-3 py-3 d-block">HOME</a></li>
-            <li class=""><a href="/admin-accept" class="text-decoration-none px-3 py-3 d-block">NEWLY REGISTERED</a></li>
-            <li class=""><a href="/users" class="text-decoration-none px-3 py-3 d-block">INTERNS</a></li>
-            <li class="active"><a href="/reports" class="text-decoration-none px-3 py-3 d-block">REPORTS</a></li>
+            <li class=""><a href="<?=url('/userhome')?>" class="text-decoration-none px-3 py-3 d-block">HOME</a></li>
+            <li class=""><a href="/user-reset-password" class="text-decoration-none px-3 py-3 d-block">CHANGE PASSWORD</a></li>
+            <li class=""><a href="/profile/edit" class="text-decoration-none px-3 py-3 d-block">UPDATE PROFILE</a></li>
+            <li class=""><a href="/submit_report" class="text-decoration-none px-3 py-3 d-block">SUBMIT REPORT</a></li>
+            <li class="active"><a href="/user-reports" class="text-decoration-none px-3 py-3 d-block">MY REPORTS</a></li>
         </ul>
 
 
@@ -61,7 +62,7 @@
                 </li>-->
                 <nav class="navbar navbar-expand-md py-3 navbar-light bg-light ">
                     <img src="" class="avatar">
-                    <form id="logout" method="POST" action="<?=url('/adminlogout')?>">
+                    <form id="logout" method="POST" action="<?=url('/logout')?>">
                         @csrf
                         <input type="submit" class="btn btn-secondary default btn" onclick="confirmlogout(event)" value="Logout" name="logout" />
                     </form>
@@ -87,82 +88,9 @@
         </div>
           </nav>
 
-        @if(session('fail'))
-            <div class="alert alert-danger">{{ session('fail') }}</div>
-        @endif
-        <br>
-        <form id="submitform" action="<?=url('/filtered-reports')?>" method="POST" style="margin-left: 1%">
-            @csrf
-
-            <div class="form-group">
-                <label for="scnumber"><b>SC Number</b></label>
-                <input type="text" class="form-control" id="scnumber" name="scnumber" style="width: 50%" placeholder="Type SC Number" value="{{ $scnumber }}" required >
-                <div class="scnumber-select" id="scnumber-select">
-                    <div class="select-scnumbers">
-                        <!-- Dynamic options will be inserted here -->
-                    </div>
-                </div>
-            </div><br>
-
-            <input type="submit" class="btn btn-primary" id="submitBtn" value="See Reports"></input>
-            <button type="button" id="customResetButton" class="btn btn-secondary">Reset</button>
-        </form>
-        <script>
-            const searchscnumber = document.getElementById('scnumber');
-                        const scnumberSelect = document.getElementById('scnumber-select');
-                        const selectscnumbers = scnumberSelect.querySelector('.select-scnumbers');
-
-                        //list of options
-                        const scnumbers = [
-                            @foreach ($scnumbers as $scnumber)
-                                "{{ $scnumber }}",
-                            @endforeach
-                        ];
-
-                        searchscnumber.addEventListener('input', function () {
-                            const searchValue = this.value.toLowerCase();
-                            const filtered = scnumbers.filter(option => option.toLowerCase().includes(searchValue));
-
-                            // Generate HTML for filtered options
-                            const html = filtered.map(option => `<div>${option}</div>`).join('');
-                            selectscnumbers.innerHTML = html;
-
-                            // Show/hide the filtered options container
-                            if (searchValue.length > 0) {
-                                scnumberSelect.style.display = 'block';
-                            } else {
-                                scnumberSelect.style.display = 'block';
-                                // If search box is empty, show all positions
-                                selectscnumbers.innerHTML = scnumbers.map(option => `<div>${option}</div>`).join('');
-                            }
-                        });
-
-                        // Handle option selection
-                        scnumberSelect.addEventListener('click', function (event) {
-                            if (event.target.tagName === 'DIV') {
-                                searchscnumber.value = event.target.textContent;
-                                scnumberSelect.style.display = 'none';
-                            }
-                        });
-
-                        const resetBtn = document.getElementById('customResetButton');
-
-                // Add an event listener to the button
-                resetBtn.addEventListener('click', function () {
-                    // Define the route URL you want to navigate to
-                    const routeURL = '/reports';
-
-                    // Navigate to the specified route
-                    window.location.href = routeURL;
-                });
-        </script>
         <br>
         @if($reports->count() != 0)
-            @if($reports->count() == 1)
-                <h3 style="margin-left: 1%; color: rgb(156, 86, 6);">{{ $name }} - 1 Report Available</h3>
-            @else
-                <h3 style="margin-left: 1%; color: rgb(156, 86, 6);">{{ $name }} - {{ $reports->count() }} Reports Available</h3>
-            @endif
+            <h5 style="color: rgb(255, 166, 0)">Submitted Reports: {{ $reports->count() }}</h5>
 
             @foreach ($reports as $key => $report)
                 @php
@@ -170,6 +98,8 @@
                     $date_obj = \DateTime::createFromFormat('Y-m-d H:i:s', $timestamp);
                     $date = $date_obj->format('Y-m-d');
                 @endphp
+
+
                 <div class="report-container" id="report-{{ $key }}">
                     <div class="report-title" onclick="toggleReport({{ $key }})">{{ $report->period }}</div>
                     <div class="report-content" style="display: none;">
@@ -189,10 +119,6 @@
                     </div>
                 </div><br>
             @endforeach
-        @else
-                @if ($name != "")
-                    <h3 style="margin-left: 1%; color: rgb(156, 86, 6);">{{ $name }} - No Reports Available</h3>
-                @endif
         @endif
     </div>
    </div>

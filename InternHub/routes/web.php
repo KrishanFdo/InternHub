@@ -72,3 +72,4 @@ Route::get('/submit_report',[ProgressReportController::class,'show'])->middlewar
 Route::post('/submit_report', [ProgressReportController::class,'submit_report'])->middleware('auth:web');
 Route::get('/reports',[ProgressReportController::class,'reports'])->middleware('auth:webadmin');
 Route::post('/filtered-reports',[ProgressReportController::class,'filtered_reports'])->middleware('auth:webadmin');
+Route::get('/user-reports',[ProgressReportController::class,'user_reports'])->middleware('auth:web');

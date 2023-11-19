@@ -12,8 +12,24 @@ class ProgressReportController extends Controller
 {
 
     public function show(){
-        $reports = ProgressReport::where("s_id",auth()->user()->id);
+        $reports = ProgressReport::where("s_id",auth()->user()->id)->get();
         return view('submit_report',compact('reports'));
+    }
+
+    public function user_reports(){
+        $reports = ProgressReport::where('s_id',auth()->user()->id)->orderByRaw(
+            "CASE
+                WHEN period = 'Week1-Week4' THEN 1
+                WHEN period = 'Week5-Week8' THEN 2
+                WHEN period = 'Week9-Week12' THEN 3
+                WHEN period = 'Week13-Week16' THEN 4
+                WHEN period = 'Week17-Week20' THEN 5
+                WHEN period = 'Week21-Week24' THEN 6
+                ELSE 5
+            END"
+        )->get();
+
+        return view('user_reports',compact('reports'));
     }
     public function submit_report(Request $request){
         $request->validate([

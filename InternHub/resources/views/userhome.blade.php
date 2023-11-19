@@ -34,6 +34,7 @@
             <li class=""><a href="/user-reset-password" class="text-decoration-none px-3 py-3 d-block">CHANGE PASSWORD</a></li>
             <li class=""><a href="/profile/edit" class="text-decoration-none px-3 py-3 d-block">UPDATE PROFILE</a></li>
             <li class=""><a href="/submit_report" class="text-decoration-none px-3 py-3 d-block">SUBMIT REPORT</a></li>
+            <li class=""><a href="/user-reports" class="text-decoration-none px-3 py-3 d-block">MY REPORTS</a></li>
         </ul>
 
 
