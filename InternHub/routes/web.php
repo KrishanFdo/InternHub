@@ -76,3 +76,4 @@ Route::post('/filtered-reports',[ProgressReportController::class,'filtered_repor
 Route::get('/user-reports',[ProgressReportController::class,'user_reports'])->middleware('auth:web');
 
 Route::post('/pdf-user',[PdfController::class,'userpdf']);
+Route::post('/pdf-preport',[PdfController::class,'preportpdf']);

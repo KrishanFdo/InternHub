@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ProgressReport;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\User;
@@ -15,10 +16,13 @@ class PdfController extends Controller
         return $pdf->Stream($fileName);
     }
 
-    public function createNotice ($id) {
-        //$data = RandomNotice::where('id',$id)->first();
-       // $pdf = PDF::loadview('Notice',Compact('data'));
-        //$fileName = ($data['Date']."_".$data['Topic'] ?? 'default') . '.pdf';
-        //return $pdf->Stream($fileName);
+    public function preportpdf(Request $request){
+        $id = User::where('scnumber',$request->scnumber)->pluck('id')->first();
+        $scnumber = $request->scnumber;
+        $report = ProgressReport::where('s_id',$id)->where('period',$request->period)->get()->first();
+        $pdf = PDF::loadview('pdf.preportpdf',compact('report','scnumber'));
+        $fileName = ($scnumber."_"."Progress_Report_".$report->period ?? 'default') . '.pdf';
+        return $pdf->Stream($fileName);
     }
+
 }
