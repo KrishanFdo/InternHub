@@ -276,6 +276,11 @@
                                     }
                                 }
                             </script>
+                            <form action="<?=url('/pdf-user')?>" method="post">
+                                @csrf
+                                <input type="hidden" name="id" value="{{ $item->id }}">
+                                <input type="submit" value=" Download PDF" id="pdf">
+                            </form>
                         </div>
                         </div>
                         </div>

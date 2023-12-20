@@ -8,6 +8,7 @@ use App\Http\Controllers\ExportController;
 use App\Http\Controllers\ProgressReportController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PdfController;
 
 /*
 |--------------------------------------------------------------------------
@@ -73,3 +74,5 @@ Route::post('/submit_report', [ProgressReportController::class,'submit_report'])
 Route::get('/reports',[ProgressReportController::class,'reports'])->middleware('auth:webadmin');
 Route::post('/filtered-reports',[ProgressReportController::class,'filtered_reports'])->middleware('auth:webadmin');
 Route::get('/user-reports',[ProgressReportController::class,'user_reports'])->middleware('auth:web');
+
+Route::post('/pdf-user',[PdfController::class,'userpdf']);
