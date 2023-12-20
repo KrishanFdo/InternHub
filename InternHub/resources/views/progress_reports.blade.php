@@ -171,7 +171,16 @@
                     $date = $date_obj->format('Y-m-d');
                 @endphp
                 <div class="report-container" id="report-{{ $key }}">
-                    <div class="report-title" onclick="toggleReport({{ $key }})">{{ $report->period }}</div>
+                    <div style="display:flex;">
+                        <div class="report-title" onclick="toggleReport({{ $key }})">{{ $report->period }}</div>
+                        <form id="{{ $scnumber }}r" action="<?=url('/pdf-preport')?>" method="post">
+                            @csrf
+                            <input type="hidden" name="scnumber" value="{{ $scnumber }}">
+                            <input type="hidden" name="period" value="{{ $report->period }}">
+                            <input type="submit" value="Download PDF" id="pdf">
+                        </form>
+                    </div>
+
                     <div class="report-content" style="display: none;">
                         <h5 style="color: rgb(153, 2, 27);">Projects Involved</h5>
                         <p>{!! $report->projects !!}</p>
