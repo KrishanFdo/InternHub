@@ -226,16 +226,16 @@ class UserController extends Controller
 
 
             //industrial training details
-            // 'company'=>'required',
-            // 'c_address'=>'required',
-            // 'hr_number'=>'required|mobile',
-            // 's_date'=>'required|date',
-            // 'e_date'=>'required|date',
-            // 'supervisor'=>'required',
-            // 's_email'=>'required|email',
-            // 's_mobile'=>'required|mobile',
-            // 'technologies'=>'required',
-            // 'description'=>'required|min_words'
+            'company'=>'required',
+            'c_address'=>'required',
+            'hr_number'=>'required|mobile',
+            's_date'=>'required|date',
+            'e_date'=>'required|date',
+            'supervisor'=>'required',
+            's_email'=>'required|email',
+            's_mobile'=>'required|mobile',
+            'technologies'=>'required',
+            'description'=>'required|min_words'
         ]);
         // Fetch the user's current profile data
         $id = Auth::user()->id;

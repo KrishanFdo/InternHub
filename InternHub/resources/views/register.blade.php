@@ -206,7 +206,7 @@
                             </div>
                         </div>
 
-                        <div class="col-sm-6 mb-4">
+                         {{--  <div class="col-sm-6 mb-4">
                             <label style="color: blue;">Company Address</label>
                             <input type="text" class="form-control " name="c_address" value="{{ old('c_address') }}">
                             @error('c_address')
@@ -299,7 +299,7 @@
                                     wordCountDisplay.style.color = 'red'; // Reset to default color
                                 }
                             });
-                        </script>
+                        </script>  --}}
 
                         </div>
                         <div style="text-align: center">

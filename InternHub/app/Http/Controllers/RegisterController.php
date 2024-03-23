@@ -63,7 +63,7 @@ class RegisterController extends Controller
 
             //industrial training details
             'company'=>'required',
-            'c_address'=>'required',
+            /*'c_address'=>'required',
             'hr_number'=>'required|mobile',
             's_date'=>'required|date',
             'e_date'=>'required|date',
@@ -71,7 +71,7 @@ class RegisterController extends Controller
             's_email'=>'required|email',
             's_mobile'=>'required|mobile',
             'technologies'=>'required',
-            'description'=>'required|min_words'
+            'description'=>'required|min_words'*/
         ]);
 
         $name = $request->input("name");
