@@ -114,8 +114,8 @@
 
                         //list of options
                         const scnumbers = [
-                            @foreach ($scnumbers as $scnumber)
-                                "{{ $scnumber }}",
+                            @foreach ($scnumbers as $sc)
+                                "{{ $sc }}",
                             @endforeach
                         ];
 

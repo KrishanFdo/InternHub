@@ -101,6 +101,16 @@
                     <div style=" display: flex;">
 
                         <div style="margin-left: 1%;">
+                            <label for="scnumber">Batch</label>
+                            <select class="form-select" name="batch">
+                                <option value="">All</option>
+                                @foreach ($scnums as $scnum)
+                                    <option value="{{ $scnum }}" {{ $selectedscnum == $scnum ? 'selected' : '' }}>SC/{{ $scnum }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div style="margin-left: 1%;">
                             <label for="scnumber">SC Number</label>
                             <input type="text" class="form-control" id="scnumber" name="scnumber" value="{{ $selectedscnumber }}">
                             <div class="scnumber-select" id="scnumber-select">

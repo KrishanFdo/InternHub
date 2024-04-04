@@ -62,15 +62,21 @@ class UserController extends Controller
     }
 
     public function users(){
+        $selectedscnum = "";
         $selectedscnumber = "All";
         $selectedcompany = "All";
         $selectedspecial = "";
-
-        $data = User::all();
+        $scnums=[];
         $scnumbers = User::distinct()->pluck('scnumber');
+        foreach($scnumbers as $scnum){
+            $scParts = explode('/', $scnum);
+            if(!in_array($scParts[1],$scnums))
+                array_push($scnums,$scParts[1]);
+        }
+        $data = User::all();
         $companies = User::distinct()->pluck('company');
         return view('users',
-         compact('data','scnumbers','companies','selectedscnumber','selectedcompany','selectedspecial'));
+         compact('data','scnumbers','companies','selectedscnumber','selectedcompany','selectedspecial','scnums','selectedscnum'));
 
     }
 
@@ -101,6 +107,14 @@ class UserController extends Controller
         $query = User::query();
         $flag=0;
         // Apply filters based on user selections
+        $scnums=[];
+        $selectedscnum = $request->input('batch');
+        $scnumbers = User::distinct()->pluck('scnumber');
+        foreach($scnumbers as $scnum){
+            $scParts = explode('/', $scnum);
+            if(!in_array($scParts[1],$scnums))
+                array_push($scnums,$scParts[1]);
+        }
         $selectedscnumber = $request->input('scnumber');
         $selectedcompany = $request->input('company');
         $selectedspecial = $request->input('special');
@@ -130,6 +144,17 @@ class UserController extends Controller
 
         $data = $query->get();
 
+        if ($request->has('batch')) {
+            if($request->input('batch')!=""){
+                foreach($data as $key=>$user){
+                    $scParts = explode('/', $user['scnumber']);
+                    if($request->input('batch')!=$scParts[1]){
+                        unset($data[$key]);
+                    }
+                }
+                $flag = 1;
+            }
+        }
         if($flag==0){
             $data=User::all();
         }
@@ -137,7 +162,7 @@ class UserController extends Controller
         $scnumbers = User::distinct()->pluck('scnumber');
         $companies = User::distinct()->pluck('company');
         return view('users',
-         compact('data','scnumbers','companies','selectedcompany','selectedscnumber','selectedspecial'));
+         compact('data','scnumbers','companies','selectedcompany','selectedscnumber','selectedspecial','scnums','selectedscnum'));
     }
 
     public function update_user_password(Request $request){
